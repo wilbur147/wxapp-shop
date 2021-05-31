@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "特惠领券购物",
+  "navigationStyle": "custom",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "u-navbar": "/uview-ui/components/u-navbar/u-navbar",
+    "u-search": "/uview-ui/components/u-search/u-search",
+    "u-row": "/uview-ui/components/u-row/u-row",
+    "u-col": "/uview-ui/components/u-col/u-col",
+    "u-avatar": "/uview-ui/components/u-avatar/u-avatar",
+    "u-line": "/uview-ui/components/u-line/u-line"
+  }
+}
