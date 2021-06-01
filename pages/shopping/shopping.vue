@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="u-bg-gray">
 		<!-- 导航栏 -->
 		<u-navbar :is-back="false" title="测试导航栏" :background="background">
 			<view class="slot-wrap u-flex-wrap">
@@ -46,7 +46,7 @@
 		
 		<!-- 中部推销图 -->
 		<view class="wrap">
-			<u-row class="sell-wrap">
+			<u-row>
 				<u-col span="6">
 					<image src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg" mode="widthFix" class="first-image"></image>
 				</u-col>
@@ -64,6 +64,24 @@
 		<!-- 商品广告图 -->
 		<view style="text-align: center;">
 			<image src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg" mode="widthFix" class="ad-image"></image>
+		</view>
+		
+		<!-- 分类商品分隔栏 -->
+		<view class="sell-wrap">
+			<u-row :gutter="100">
+				<u-col :span="4">
+					<view class="type-title">拼多多</view>
+					<view class="type-desc type-active">精选宝贝</view>
+				</u-col>
+				<u-col :span="4" >
+					<view class="type-title">京东</view>
+					<view class="type-desc">件件必抢</view>
+				</u-col>
+				<u-col :span="4" >
+					<view class="type-title">唯品会</view>
+					<view class="type-desc">品牌特卖</view>
+				</u-col>
+			</u-row>
 		</view>
 	</view>
 </template>
@@ -103,6 +121,13 @@
 		}
 	}
 </script>
+
+<style>
+	/* page不能写带scope的style标签中，否则无效 */
+	page {
+		background-color: rgb(240, 240, 240);
+	}
+</style>
 
 <style lang="scss" scoped>
 	.navbar-images{
@@ -174,6 +199,34 @@
 					}
 				}
 			}
+		}
+	}
+	
+	.sell-wrap{
+		border-radius: 15rpx;
+		background-color: #FFFFFF;
+		width: 95%;
+		height: 300rpx;
+		margin: 20rpx auto;
+		.type-title{
+			font-size: 34rpx;
+			font-weight: 600;
+			margin-bottom: 15rpx;
+			text-align: center;
+		}
+		
+		.type-desc{
+			font-size: 22rpx;
+			text-align: center;
+			height: 40rpx;
+			line-height: 40rpx;
+			width: 140rpx;
+			margin: auto;
+		}
+		
+		.type-active{
+			background-color: #F29100;
+			border-radius: 30rpx;
 		}
 	}
 </style>

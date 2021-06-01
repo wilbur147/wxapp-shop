@@ -1,3 +1,133 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* page不能写带scope的style标签中，否则无效 */
+page {
+	background-color: rgb(240, 240, 240);
+}
+
 @charset "UTF-8";
 /**
  * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
@@ -74,5 +204,30 @@
   display: block;
   white-space: pre-line;
   margin: auto;
+}
+.sell-wrap.data-v-24f06b86 {
+  border-radius: 15rpx;
+  background-color: #FFFFFF;
+  width: 95%;
+  height: 300rpx;
+  margin: 20rpx auto;
+}
+.sell-wrap .type-title.data-v-24f06b86 {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin-bottom: 15rpx;
+  text-align: center;
+}
+.sell-wrap .type-desc.data-v-24f06b86 {
+  font-size: 22rpx;
+  text-align: center;
+  height: 40rpx;
+  line-height: 40rpx;
+  width: 140rpx;
+  margin: auto;
+}
+.sell-wrap .type-active.data-v-24f06b86 {
+  background-color: #F29100;
+  border-radius: 30rpx;
 }
 
