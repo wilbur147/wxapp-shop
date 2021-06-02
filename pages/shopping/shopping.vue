@@ -18,7 +18,10 @@
 		input-style="position: relative;"
 		>
 		</u-search>
-		
+		<!-- 商品广告图 -->
+		<view style="text-align: center;">
+			<image src="../../static/shop/o_1f73id996g9mfok1bc4tsg51312.png" mode="widthFix" class="ad-image"></image>
+		</view>
 		<view class="section">
 		  <view class="section-bottom">
 				<scroll-view class="scroll-view_X" scroll-x="true">
@@ -28,16 +31,16 @@
 					</view>					 -->	
 					<u-row :gutter="60">
 						<u-col :span="3">
-							<u-avatar src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg"></u-avatar>
+							<u-avatar src="../../static/shop/o_1f55hj3cc84e17vh4gq1em71ahn1c.png"></u-avatar>
 						</u-col>
 						<u-col :span="3">
-							<u-avatar src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg"></u-avatar>
+							<u-avatar src="../../static/shop/o_1f55hjjre1snkf5e77s18us1hde1h.png"></u-avatar>
 						</u-col>
 						<u-col :span="3">
-							<u-avatar src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg"></u-avatar>
+							<u-avatar src="../../static/shop/o_1f55hjtp535q4b2br6cni18do1m.png"></u-avatar>
 						</u-col>
 						<u-col :span="3">
-							<u-avatar src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg"></u-avatar>
+							<u-avatar src="../../static/shop/o_1f55hk4bciso1fbl93h6ka17v1r.png"></u-avatar>
 						</u-col>
 					</u-row>
 				</scroll-view>
@@ -45,25 +48,20 @@
 		</view>
 		
 		<!-- 中部推销图 -->
-		<view class="wrap">
+		<view class="wrap" style="padding: 22rpx 18rpx;">
 			<u-row>
-				<u-col span="6">
-					<image src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg" mode="widthFix" class="first-image"></image>
+				<u-col span="5">
+					<image src="../../static/shop/o_1f2j4g85brqh8cl1jg916n2ung17.png" mode="widthFix" class="first-image"></image>
 				</u-col>
-				<u-col span="6">
-					<u-row>
-						<image src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg" mode="widthFix" class="second-image"></image>
-					</u-row>
-					<u-row>
-						<u-line class="u-line" length="300rpx"></u-line>
-						<image src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg" mode="widthFix" class="third-image"></image>
-					</u-row>
+				<u-col span="7">
+					<image src="../../static/shop/o_1f2j4gkvf1uuu14f01c9uids81n1c.png" mode="widthFix" class="second-image"></image>
+					<image src="../../static/shop/o_1f2j4h3upn5b158ludf16bhqmp1h.png" mode="widthFix" class="third-image"></image>
 				</u-col>
 			</u-row>
 		</view>
 		<!-- 商品广告图 -->
 		<view style="text-align: center;">
-			<image src="https://www.uviewui.com/customer/sdf1516355we0sd2.jpg" mode="widthFix" class="ad-image"></image>
+			<image src="../../static/shop/o_1f5il8ed71bs913pta30ttakp612.gif" mode="widthFix" class="ad-image"></image>
 		</view>
 		
 		<!-- 分类商品分隔栏 -->
@@ -82,6 +80,59 @@
 					<view class="type-desc">品牌特卖</view>
 				</u-col>
 			</u-row>
+		</view>
+		
+		<!-- 商品信息列表 -->
+		<view class="goods-list">
+			<view class="wrap">
+					<u-waterfall v-model="flowList" ref="uWaterfall">
+						<template v-slot:left="{leftList}">
+							<view class="demo-warter" v-for="(item, index) in leftList" :key="index">
+								<u-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></u-lazy-load>
+								<view class="demo-title u-line-2">
+									{{item.title}}
+								</view>
+								<view class="demo-price">
+									￥{{item.price}}元
+								</view>
+								<!-- <view class="demo-tag">
+									<view class="demo-tag-owner">
+										自营
+									</view>
+									<view class="demo-tag-text">
+										放心购
+									</view>
+								</view> -->
+								<view class="demo-shop">
+									{{item.shop}}
+								</view>
+							</view>
+						</template>
+						<template v-slot:right="{rightList}">
+							<view class="demo-warter" v-for="(item, index) in rightList" :key="index">
+								<u-lazy-load threshold="-450" border-radius="10" :image="item.image" :index="index"></u-lazy-load>
+								<view class="demo-title u-line-2">
+									{{item.title}}
+								</view>
+								<view class="demo-price">
+									￥{{item.price}}元
+								</view>
+								<!-- <view class="demo-tag">
+									<view class="demo-tag-owner">
+										自营
+									</view>
+									<view class="demo-tag-text">
+										放心购
+									</view>
+								</view> -->
+								<view class="demo-shop">
+									{{item.shop}}
+								</view>
+							</view>
+						</template>
+					</u-waterfall>
+					<u-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus" @loadmore="addRandomData"></u-loadmore>
+				</view>
 		</view>
 	</view>
 </template>
@@ -112,11 +163,101 @@
 					"border-radius": "30rpx",
 					"background-color": "#ff9900"
 				},
+				loadStatus: 'loadmore',
+				flowList: [],
+				list: [
+					{
+						price: 35,
+						title: '北国风光，千里冰封，万里雪飘',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic.sc.chinaz.com/Files/pic/pic9/202002/zzpic23327_s.jpg',
+					},
+					{
+						price: 75,
+						title: '望长城内外，惟余莽莽',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic.sc.chinaz.com/Files/pic/pic9/202002/zzpic23325_s.jpg',
+					},
+					{
+						price: 385,
+						title: '大河上下，顿失滔滔',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
+					},
+					{
+						price: 784,
+						title: '欲与天公试比高',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/zzpic23369_s.jpg',
+					},
+					{
+						price: 7891,
+						title: '须晴日，看红装素裹，分外妖娆',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2130_s.jpg',
+					},
+					{
+						price: 2341,
+						shop: '李白杜甫白居易旗舰店',
+						title: '江山如此多娇，引无数英雄竞折腰',
+						image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23346_s.jpg',
+					},
+					{
+						price: 661,
+						shop: '李白杜甫白居易旗舰店',
+						title: '惜秦皇汉武，略输文采',
+						image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23344_s.jpg',
+					},
+					{
+						price: 1654,
+						title: '唐宗宋祖，稍逊风骚',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
+					},
+					{
+						price: 1678,
+						title: '一代天骄，成吉思汗',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
+					},
+					{
+						price: 924,
+						title: '只识弯弓射大雕',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
+					},
+					{
+						price: 8243,
+						title: '俱往矣，数风流人物，还看今朝',
+						shop: '李白杜甫白居易旗舰店',
+						image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
+					},
+				],
 			}
+		},
+		onLoad() {
+			this.addRandomData();
+		},
+		onReachBottom() {
+			this.loadStatus = 'loading';
+			// 模拟数据加载
+			setTimeout(() => {
+				this.addRandomData();
+				this.loadStatus = 'loadmore';
+			}, 1000)
 		},
 		methods: {
 			toSearch(){
 				console.log("触发搜索点击");
+			},
+			addRandomData() {
+				for(let i = 0; i < 10; i++) {
+					let index = this.$u.random(0, this.list.length - 1);
+					// 先转成字符串再转成对象，避免数组对象引用导致数据混乱
+					let item = JSON.parse(JSON.stringify(this.list[index]))
+					item.id = this.$u.guid();
+					this.flowList.push(item);
+				}
 			}
 		}
 	}
@@ -137,25 +278,29 @@
 		font-size: 30rpx;
 	}
 	.ad-image{
-		border-radius: 90rpx;
-		margin: 15rpx auto;
+		border-radius: 30rpx;
+		margin: 0rpx auto;
 		width: 94%;
-		height: 160rpx!important;
+		height: 190rpx!important;
 	}
 	
 	.first-image{
-		width: 360rpx!important;
-		height: 300rpx!important;
+		width: 306rpx!important;
+		height: 420rpx!important;
 	}
-	.second-image{
-		width: 360rpx;
-		height: 145rpx!important;
-		margin-bottom: 3rpx;
+	.goods-to-wrap{
+		.u-row{
+			height: 205rpx!important;
+		}
+		.second-image{
+			width: 410rpx;
+			height: 205rpx!important;
+		}
 	}
+	
 	.third-image{
-		margin-top: 3rpx;
-		width: 360rpx;
-		height: 145rpx!important;
+		width: 410rpx;
+		height: 210rpx!important;
 	}
 	
 	.section{
@@ -206,13 +351,14 @@
 		border-radius: 15rpx;
 		background-color: #FFFFFF;
 		width: 95%;
-		height: 300rpx;
+		height: 160rpx;
 		margin: 20rpx auto;
 		.type-title{
 			font-size: 34rpx;
 			font-weight: 600;
 			margin-bottom: 15rpx;
 			text-align: center;
+			margin-top: 34rpx;
 		}
 		
 		.type-desc{
@@ -229,4 +375,77 @@
 			border-radius: 30rpx;
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	.demo-warter {
+			border-radius: 8px;
+			margin: 5px;
+			background-color: #ffffff;
+			padding: 8px;
+			position: relative;
+		}
+		
+		.u-close {
+			position: absolute;
+			top: 32rpx;
+			right: 32rpx;
+		}
+		
+		.demo-image {
+			width: 100%;
+			border-radius: 4px;
+		}
+		
+		.demo-title {
+			font-size: 30rpx;
+			margin-top: 5px;
+			color: $u-main-color;
+		}
+		
+		.demo-tag {
+			display: flex;
+			margin-top: 5px;
+		}
+		
+		.demo-tag-owner {
+			background-color: $u-type-error;
+			color: #FFFFFF;
+			display: flex;
+			align-items: center;
+			padding: 4rpx 14rpx;
+			border-radius: 50rpx;
+			font-size: 20rpx;
+			line-height: 1;
+		}
+		
+		.demo-tag-text {
+			border: 1px solid $u-type-primary;
+			color: $u-type-primary;
+			margin-left: 10px;
+			border-radius: 50rpx;
+			line-height: 1;
+			padding: 4rpx 14rpx;
+			display: flex;
+			align-items: center;
+			border-radius: 50rpx;
+			font-size: 20rpx;
+		}
+		
+		.demo-price {
+			font-size: 34rpx;
+			color: $u-type-error;
+			margin-top: 5px;
+		}
+		
+		.demo-shop {
+			font-size: 22rpx;
+			color: $u-tips-color;
+			margin-top: 5px;
+		}
 </style>
