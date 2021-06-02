@@ -4,9 +4,9 @@
 		<u-navbar :is-back="false" title="测试导航栏" :background="background">
 			<view class="slot-wrap u-flex-wrap">
 				<view class="u-flex-c">
-					<image class="navbar-images" src="../../static/center-selected.png" mode="widthFix"></image>
-					<image class="navbar-images" src="../../static/center-selected.png" mode="widthFix"></image>
-					<image class="navbar-images" src="../../static/center-selected.png" mode="widthFix"></image>
+					<image class="navbar-images" src="../../static/shop/拼多多logo.png" mode="widthFix"></image>
+					<image class="navbar-images" src="../../static/shop/京东logo.png" mode="widthFix"></image>
+					<image class="navbar-images" src="../../static/shop/唯品会logo.png" mode="widthFix"></image>
 				</view>
 			</view>
 		</u-navbar>
@@ -25,24 +25,10 @@
 		<view class="section">
 		  <view class="section-bottom">
 				<scroll-view class="scroll-view_X" scroll-x="true">
-					<!-- <view v-for="(item, index) in otherMiniPrograms" :key="index" class="section-bottom-item" @tap="toOtherMiniPrograms" :data-index="index">
+					<view v-for="(item, index) in adImagesList" :key="index" class="section-bottom-item" @tap="toOtherMiniPrograms" :data-index="index">
 						<image :src="item.icon" mode="aspectFit"></image>
-						<text>{{item.name}}</text>
-					</view>					 -->	
-					<u-row :gutter="60">
-						<u-col :span="3">
-							<u-avatar src="../../static/shop/o_1f55hj3cc84e17vh4gq1em71ahn1c.png"></u-avatar>
-						</u-col>
-						<u-col :span="3">
-							<u-avatar src="../../static/shop/o_1f55hjjre1snkf5e77s18us1hde1h.png"></u-avatar>
-						</u-col>
-						<u-col :span="3">
-							<u-avatar src="../../static/shop/o_1f55hjtp535q4b2br6cni18do1m.png"></u-avatar>
-						</u-col>
-						<u-col :span="3">
-							<u-avatar src="../../static/shop/o_1f55hk4bciso1fbl93h6ka17v1r.png"></u-avatar>
-						</u-col>
-					</u-row>
+						<!-- <text>{{item.name}}</text> -->
+					</view>						
 				</scroll-view>
 		  </view>
 		</view>
@@ -54,8 +40,12 @@
 					<image src="../../static/shop/o_1f2j4g85brqh8cl1jg916n2ung17.png" mode="widthFix" class="first-image"></image>
 				</u-col>
 				<u-col span="7">
-					<image src="../../static/shop/o_1f2j4gkvf1uuu14f01c9uids81n1c.png" mode="widthFix" class="second-image"></image>
-					<image src="../../static/shop/o_1f2j4h3upn5b158ludf16bhqmp1h.png" mode="widthFix" class="third-image"></image>
+					<u-row class="goods-to-wrap">
+						<image src="../../static/shop/o_1f2j4gkvf1uuu14f01c9uids81n1c.png" mode="widthFix" class="second-image"></image>
+					</u-row>
+					<u-row style="position: relative;">
+						<image src="../../static/shop/o_1f2j4h3upn5b158ludf16bhqmp1h.png" mode="widthFix" class="third-image"></image>
+					</u-row>
 				</u-col>
 			</u-row>
 		</view>
@@ -163,6 +153,24 @@
 					"border-radius": "30rpx",
 					"background-color": "#ff9900"
 				},
+				adImagesList: [
+					{
+						icon: '../../static/shop/o_1f55hj3cc84e17vh4gq1em71ahn1c.png',
+						name: ''
+					},
+					{
+						icon: '../../static/shop/o_1f55hjjre1snkf5e77s18us1hde1h.png',
+						name: ''
+					},
+					{
+						icon: '../../static/shop/o_1f55hjtp535q4b2br6cni18do1m.png',
+						name: ''
+					},
+					{
+						icon: '../../static/shop/o_1f55hk4bciso1fbl93h6ka17v1r.png',
+						name: ''
+					}
+				],
 				loadStatus: 'loadmore',
 				flowList: [],
 				list: [
@@ -271,11 +279,14 @@
 </style>
 
 <style lang="scss" scoped>
-	.navbar-images{
-		width: 70rpx;
-	}
-	.navbar-title{
-		font-size: 30rpx;
+	.u-flex-c{
+		padding-left: 22rpx;
+		padding-top: 16rpx;
+		.navbar-images{
+			width: 40rpx;
+			border-radius: 50%;
+			border: 4rpx solid #FFFFFF;
+		}
 	}
 	.ad-image{
 		border-radius: 30rpx;
@@ -301,11 +312,12 @@
 	.third-image{
 		width: 410rpx;
 		height: 210rpx!important;
+		position: absolute;
+		top: -8rpx
 	}
 	
 	.section{
 		width: 100vw;
-		background-color: white;
 		margin-top: 20rpx;
 		.section-top{
 			width: 100vw;
@@ -321,7 +333,8 @@
 		
 		.section-bottom{
 			width: 100vw;
-			padding: 30rpx;
+			padding: 12rpx;
+			text-align: center;
 			.scroll-view_X{
 				width: 100%;
 				white-space: nowrap;
