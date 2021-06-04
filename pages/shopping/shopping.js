@@ -1,3 +1,4 @@
+import {request} from "../../utils/request";
 export default {
 	data() {
 		return {
@@ -40,100 +41,45 @@ export default {
 					name: ''
 				}
 			],
+			queryParams: {
+				cpType: 'pdd',
+				page: 1,
+				page_size: 10
+			},
 			loadStatus: 'loadmore',
-			flowList: [],
-			list: [{
-					price: 35,
-					title: '北国风光，千里冰封，万里雪飘',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic.sc.chinaz.com/Files/pic/pic9/202002/zzpic23327_s.jpg',
-				},
-				{
-					price: 75,
-					title: '望长城内外，惟余莽莽',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic.sc.chinaz.com/Files/pic/pic9/202002/zzpic23325_s.jpg',
-				},
-				{
-					price: 385,
-					title: '大河上下，顿失滔滔',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-				},
-				{
-					price: 784,
-					title: '欲与天公试比高',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/zzpic23369_s.jpg',
-				},
-				{
-					price: 7891,
-					title: '须晴日，看红装素裹，分外妖娆',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2130_s.jpg',
-				},
-				{
-					price: 2341,
-					shop: '李白杜甫白居易旗舰店',
-					title: '江山如此多娇，引无数英雄竞折腰',
-					image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23346_s.jpg',
-				},
-				{
-					price: 661,
-					shop: '李白杜甫白居易旗舰店',
-					title: '惜秦皇汉武，略输文采',
-					image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23344_s.jpg',
-				},
-				{
-					price: 1654,
-					title: '唐宗宋祖，稍逊风骚',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
-				},
-				{
-					price: 1678,
-					title: '一代天骄，成吉思汗',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
-				},
-				{
-					price: 924,
-					title: '只识弯弓射大雕',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
-				},
-				{
-					price: 8243,
-					title: '俱往矣，数风流人物，还看今朝',
-					shop: '李白杜甫白居易旗舰店',
-					image: 'http://pic1.sc.chinaz.com/Files/pic/pic9/202002/zzpic23343_s.jpg',
-				},
-			],
+			list: [],
 		}
 	},
 	onLoad() {
-		this.addRandomData();
+		// 加载商品列表
+		this.loadGoodsList();
 	},
 	onReachBottom() {
-		this.loadStatus = 'loading';
-		// 模拟数据加载
-		setTimeout(() => {
-			this.addRandomData();
-			this.loadStatus = 'loadmore';
-		}, 1000)
+		this.loadmore();
 	},
 	methods: {
+		async loadGoodsList(){
+			const result = await request({url: '/program/mall/mallList'+this.$u.queryParams(this.queryParams), method: 'GET'});
+			if (result.code == 200) {
+				this.list = [...this.list,...result.data.goods_list];
+				if (this.list.length >= result.total) {
+					this.loadStatus = 'nomore';
+				}else{
+					this.loadStatus = 'loadmore';
+				}
+			}
+		},
+		loadmore(){
+			if(this.loadStatus == 'nomore') return;
+			this.loadStatus = 'loading';
+			this.queryParams.page = ++ this.queryParams.page;
+			// 数据加载
+			setTimeout(() => {
+				this.loadGoodsList();
+			}, 1000)
+		},
 		toSearch() {
 			console.log("触发搜索点击");
 		},
-		addRandomData() {
-			for (let i = 0; i < 10; i++) {
-				let index = this.$u.random(0, this.list.length - 1);
-				// 先转成字符串再转成对象，避免数组对象引用导致数据混乱
-				let item = JSON.parse(JSON.stringify(this.list[index]))
-				item.id = this.$u.guid();
-				this.flowList.push(item);
-			}
-		}
 	}
 }
