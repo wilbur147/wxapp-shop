@@ -11,7 +11,7 @@ export default {
 				// backgroundSize: 'cover',
 
 				// 渐变色
-				backgroundImage: 'linear-gradient(45deg, rgb(28, 187, 180), rgb(141, 198, 63))'
+				backgroundImage: 'linear-gradient(45deg, #feda2a, #d4d332)'
 			},
 			searchValue: "",
 			searchActionStyle: {
@@ -22,7 +22,7 @@ export default {
 				"line-height": "5rpx",
 				"padding": "25rpx",
 				"border-radius": "30rpx",
-				"background-color": "#ff9900"
+				"background-color": "#feda2a"
 			},
 			adImagesList: [{
 					icon: '../../static/shop/o_1f55hj3cc84e17vh4gq1em71ahn1c.png',
@@ -48,6 +48,7 @@ export default {
 			},
 			loadStatus: 'loadmore',
 			list: [],
+			searchId: '',
 		}
 	},
 	onLoad() {
@@ -61,13 +62,25 @@ export default {
 		async loadGoodsList(){
 			const result = await request({url: '/program/mall/mallList'+this.$u.queryParams(this.queryParams), method: 'GET'});
 			if (result.code == 200) {
-				this.list = [...this.list,...result.data.goods_list];
+				this.searchId = result.data.searchId;
+				this.list = [...this.list,...result.data.goodsList];
 				if (this.list.length >= result.total) {
 					this.loadStatus = 'nomore';
 				}else{
 					this.loadStatus = 'loadmore';
 				}
 			}
+		},
+		
+		numFilter (value) {
+			if (0 == value || '' == value) {
+				return value;
+			}
+		 const fenStr = '00' + Number.parseInt(value.toString()).toString()
+			return Number.parseFloat(fenStr.replace(/^(\d+?)(\d{2})$/g, '$1.$2'))
+		},
+		switchCpType(type){
+			this.queryParams.cpType = type;
 		},
 		loadmore(){
 			if(this.loadStatus == 'nomore') return;
@@ -81,5 +94,15 @@ export default {
 		toSearch() {
 			console.log("触发搜索点击");
 		},
+		goDetail(item){
+			this.$u.route({
+				url: 'pages/shop-detail/shop-detail',
+				params: {
+					"goodsId": item.goodsId,
+					"searchId": this.searchId,
+					"cpType": this.queryParams.cpType
+				}
+			})
+		}
 	}
 }

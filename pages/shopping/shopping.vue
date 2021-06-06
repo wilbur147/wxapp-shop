@@ -15,7 +15,7 @@
 		</u-navbar>
 		<!-- 搜索框 -->
 		<u-search v-model="searchValue" placeholder="输入商品名称或粘贴标题" :clearabled="false" margin="30rpx 20rpx"
-			:show-action="true" border-color="#FA3534" :disabled="true" @click="toSearch"
+			:show-action="true" border-color="#feda2a" :disabled="true" @click="toSearch"
 			:action-style="searchActionStyle" action-text="搜索优惠券" input-style="position: relative;">
 		</u-search>
 		<!-- 商品广告图 -->
@@ -62,15 +62,15 @@
 		<view class="sell-wrap">
 			<u-row :gutter="100">
 				<u-col :span="4">
-					<view class="type-title">拼多多</view>
+					<view class="type-title" @click="switchCpType('pdd')">拼多多</view>
 					<view class="type-desc type-active">精选宝贝</view>
 				</u-col>
 				<u-col :span="4">
-					<view class="type-title">京东</view>
+					<view class="type-title" @click="switchCpType('jd')">京东</view>
 					<view class="type-desc">件件必抢</view>
 				</u-col>
 				<u-col :span="4">
-					<view class="type-title">唯品会</view>
+					<view class="type-title" @click="switchCpType('wph')">唯品会</view>
 					<view class="type-desc">品牌特卖</view>
 				</u-col>
 			</u-row>
@@ -79,21 +79,21 @@
 		<!-- 商品信息列表 -->
 		<view class="item-list">
 		    <block v-if="list&&list.length">
-				<view @click="toShopDetail" class="item-item" v-for="(item,index) in list" :key="index">
-					<u-lazy-load class="item-thumbnail" :image="item.picurl" threshold="300"></u-lazy-load>
+				<view  @click="goDetail(item)" class="item-item" v-for="(item,index) in list" :key="index">
+					<u-lazy-load class="item-thumbnail" :image="item.img" threshold="300"></u-lazy-load>
 					<!-- <image class="item-shop-type" :src="item.shopTypeIcon"></image> -->
-					<view class="item-title">{{item.goods_name}}</view>
+					<view class="item-title">{{item.goodsName}}</view>
 					<view class="item-price-box">
 					    <view class="item-price-prefix">￥</view>
-					    <view class="item-price">{{item.price_after}}</view>
+					    <view class="item-price">{{numFilter(item.priceAfter)}}</view>
 					</view>
-					<view class="item-coupon-box" v-if="item.discount&&item.discount>0">
+					<view class="item-coupon-box">
 					    <image src="../../static/shop/img_coupon.png" style="width:100%;height:100%"></image>
 					    <view class="item-coupon-prefix">券</view>
-					    <view class="item-coupon-price">{{item.discount||0}}元</view>
+					    <view class="item-coupon-price">{{numFilter(item.discount)}}元</view>
 					</view>
 					<view class="item-line"></view>
-					<view class="item-price-origin">￥{{item.price}}</view>
+					<view class="item-price-origin">￥{{numFilter(item.price)}}</view>
 					<view class="item-sale" v-f="item.sales>0">已售{{item.sales}}笔</view>
 					<view class="item-money-earn" style="background-color: #FFE262;color: #2D2D2D;">领券下单</view>
 				</view>

@@ -24,6 +24,15 @@
 				"navigationBarTitleText": "uView-index"
 			}
 		}
+        ,{
+            "path" : "pages/shop-detail/shop-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
