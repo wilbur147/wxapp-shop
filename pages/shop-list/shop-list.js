@@ -2,6 +2,7 @@ import {request} from "../../utils/request";
 export default {
 		data() {
 			return {
+				couponChecked: false,
 				searchValue: "",
 				jumpType: 'search',
 				searchActionStyle: {
