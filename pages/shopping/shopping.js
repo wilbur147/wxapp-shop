@@ -92,7 +92,9 @@ export default {
 			}, 1000)
 		},
 		toSearch() {
-			console.log("触发搜索点击");
+			this.$u.route({
+				url: 'pages/HM-search/HM-search'
+			})
 		},
 		goDetail(item){
 			this.$u.route({

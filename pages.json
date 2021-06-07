@@ -32,6 +32,24 @@
                 "enablePullDownRefresh": false
             }
             
+        },
+		{
+			"path": "pages/HM-search/HM-search",
+			"style": {
+				"navigationBarTitleText": "搜索宝贝",
+				"app-plus":{
+					"softinputNavBar": "none"
+				}
+			}
+		}
+        ,{
+            "path" : "pages/shop-list/shop-list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品列表",
+                "enablePullDownRefresh": false
+            }
+            
         }
     ],
 	"globalStyle": {

@@ -16,8 +16,8 @@
 				<view class="item-cp">拼多多</view>
 				<view class="item-title u-line-2">{{item.goodsName}}</view>
 			</view>
-			<view class="item-coupon-wrap">
-				<image  @click="mallTurnChain" style="width: 100%;" src="../../static/shop/coupon.png" mode="widthFix"></image>
+			<view class="item-coupon-wrap"  @click="mallTurnChain">
+				<image style="width: 100%;" src="../../static/shop/coupon.png" mode="widthFix"></image>
 				<view class="item-coupon-price">{{numFilter(item.discount)}}</view>
 				<view class="item-coupon-time">{{$u.timeFormat(item.couponStartTime, 'yyyy.mm.dd')}}-{{$u.timeFormat(item.couponEndTime, 'yyyy.mm.dd')}}</view>
 			</view>
@@ -38,7 +38,7 @@
 		
 		<!-- 商品图片列表 -->
 		<view class="shop-picturl-box">
-			<u-collapse :head-style="collapseHeadStyle">
+			<u-collapse :head-style="collapseHeadStyle"  ref="collapseView">
 				<u-collapse-item title="宝贝详情" :open="true">
 					<view style="margin-bottom: 10rpx;" v-for="(item,index) in item.imges" :key="index">
 						<u-image width="100%" height="750rpx" :src="item"></u-image>

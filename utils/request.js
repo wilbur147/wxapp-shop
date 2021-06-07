@@ -1,4 +1,5 @@
-const baseUrl = 'http://localhost:6001'
+// const baseUrl = 'http://localhost:6001'
+const baseUrl = 'http://q9dwik9g.dongtaiyuming.net'
 export const request = (params) => {
 	// 判断路径包含前缀没有，包含了就用原始路径
 	let urlflag = false;
