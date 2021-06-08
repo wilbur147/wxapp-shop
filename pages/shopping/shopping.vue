@@ -81,7 +81,7 @@
 		    <block v-if="list&&list.length">
 				<view  @click="goDetail(item)" class="item-item" v-for="(item,index) in list" :key="index">
 					<u-lazy-load class="item-thumbnail" :image="item.img" threshold="300"></u-lazy-load>
-					<!-- <image class="item-shop-type" :src="item.shopTypeIcon"></image> -->
+					<image class="item-shop-type" :src="shopTypeIcon"></image>
 					<view class="item-title">{{item.goodsName}}</view>
 					<view class="item-price-box">
 					    <view class="item-price-prefix">￥</view>

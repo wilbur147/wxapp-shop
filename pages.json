@@ -46,8 +46,11 @@
             "path" : "pages/shop-list/shop-list",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "商品列表",
-                "enablePullDownRefresh": false
+                "navigationBarTitleText": "",
+				"app-plus": {
+					//app页面不显示滚动条
+					"scrollIndicator": "none"
+				}
             }
             
         }

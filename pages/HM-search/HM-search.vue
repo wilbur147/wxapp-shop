@@ -191,7 +191,8 @@
 					url: 'pages/shop-list/shop-list',
 					params: {
 						"keywords": keyword,
-						"jumpType": 'search'
+						"jumpType": 'search',
+						"barTitle": "搜索"
 					}
 				})
 				//以下是示例跳转淘宝搜索，可自己实现搜索逻辑

@@ -44,16 +44,18 @@ export default {
 			queryParams: {
 				cpType: 'pdd',
 				page: 1,
-				page_size: 10
+				pageSize: 10
 			},
 			loadStatus: 'loadmore',
 			list: [],
 			searchId: '',
+			shopTypeIcon: '',
 		}
 	},
 	onLoad() {
 		// 加载商品列表
 		this.loadGoodsList();
+		this.initShopTypeIcon();
 	},
 	onReachBottom() {
 		this.loadmore();
@@ -105,6 +107,19 @@ export default {
 					"cpType": this.queryParams.cpType
 				}
 			})
+		},
+		initShopTypeIcon(){
+			switch(this.queryParams.cpType){
+				case 'pdd':
+				this.shopTypeIcon = '../../static/shop/pdd_logo.png';
+				break;
+				case 'jd':
+				this.shopTypeIcon = '../../static/shop/jd_logo.png';
+				break;
+				case 'wph':
+				this.shopTypeIcon = '../../static/shop/wph_logo.png';
+				break;
+			}
 		}
 	}
 }
