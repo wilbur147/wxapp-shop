@@ -14,9 +14,6 @@
 			font-size="32" :current="tabCurrent" swiperWidth="750" gutter="160"
 			bar-width="60" bar-height="4"
 			@change="toSwitch"></u-tabs-swiper>
-			<!-- <view class="shop-item" @click="toSwitch('jd')">京东</view>
-			<view class="shop-item" @click="toSwitch('pdd')">拼多多</view>
-			<view class="shop-item" @click="toSwitch('wph')">唯品会</view> -->
 		</view>
 		<!-- navbar -->
 		<view class="navbar">
@@ -63,7 +60,7 @@
 						<view class="item-sale" v-f="item.sales>0">已售{{item.sales}}笔</view>
 						<view class="item-money-earn" style="background-color: #ff6052;color: #FFFFFF;">领券下单</view>
 					</view>
-					<u-loadmore style="margin: auto;" :status="loadStatus" font-size="34" @loadmore="loadmore"/>
+					<u-loadmore style="margin: auto;" :status="loadStatus" font-size="26" @loadmore="loadmore"/>
 				</block>
 				<block v-else>
 				    <u-empty style="margin: 200rpx auto;" text="数据为空" mode="data"></u-empty>
