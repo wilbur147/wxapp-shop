@@ -8,9 +8,31 @@
 		align-items: center;
 		.navbar-images {
 			width: 40rpx;
+			height: 40rpx;
 			border-radius: 50%;
 			border: 4rpx solid #FFFFFF;
 		}
+		// .navbar-img-first{
+		// 	background-image: url('~@/static/shop/pdd_logo.png');
+		// 	// width: 40rpx;
+		// 	background-size: 40rpx;
+		// 	border-radius: 50%;
+		// 	border: 4rpx solid #FFFFFF;
+		// }
+		// .navbar-img-second{
+		// 	background-image: url('../../static/shop/京东logo.png');
+		// 	// width: 40rpx;
+		// 	background-size: 40rpx;
+		// 	border-radius: 50%;
+		// 	border: 4rpx solid #FFFFFF;
+		// }
+		// .navbar-img-third{
+		// 	background-image: url("../../static/shop/唯品会logo.png");
+		// 	// width: 40rpx;
+		// 	background-size: 40rpx;
+		// 	border-radius: 50%;
+		// 	border: 4rpx solid #FFFFFF;
+		// }
 	}
 	.navbar-title{
 		font-size: 32rpx;
@@ -23,6 +45,40 @@
 	}
 }
 
+.tx-wrap{
+	position: relative;
+	padding: 22rpx 18rpx;
+	height: 427rpx;
+	.first-image {
+		position: absolute;
+		left: 20rpx;
+		top: 18rpx;
+		width: 306rpx;
+		height: 392rpx!important;
+		border-top-left-radius: 20rpx;
+		border-bottom-left-radius: 30rpx;
+	}
+	
+	.second-image {
+		width: 410rpx;
+		height: 210rpx;
+		position: absolute;
+		top: 18rpx;
+		right: 18rpx;
+		border-top-right-radius: 20rpx;
+	}
+	
+	.third-image {
+		width: 410rpx;
+		height: 210rpx;
+		position: absolute;
+		top: 214rpx;
+		right: 18rpx;
+		border-bottom-right-radius: 20rpx;
+	}
+}
+
+
 .ad-image {
 	border-radius: 30rpx;
 	margin: 0rpx auto;
@@ -30,28 +86,10 @@
 	height: 190rpx !important;
 }
 
-.first-image {
-	width: 306rpx !important;
-	height: 420rpx !important;
-}
 
-.goods-to-wrap {
-	.u-row {
-		height: 205rpx !important;
-	}
 
-	.second-image {
-		width: 410rpx;
-		height: 205rpx !important;
-	}
-}
 
-.third-image {
-	width: 410rpx;
-	height: 210rpx !important;
-	position: absolute;
-	top: -8rpx
-}
+
 
 .section {
 	width: 100vw;

@@ -4,9 +4,9 @@
 		<u-navbar :is-back="false" :background="background">
 			<view class="slot-wrap">
 				<view class="u-flex-c">
-					<image class="navbar-images" src="../../static/shop/拼多多logo.png" mode="widthFix"></image>
-					<image class="navbar-images" src="../../static/shop/京东logo.png" mode="widthFix"></image>
-					<image class="navbar-images" src="../../static/shop/唯品会logo.png" mode="widthFix"></image>
+					<image class="navbar-images" src="@/static/shop/拼多多logo.png" ></image>
+					<image class="navbar-images" src="@/static/shop/京东logo.png" ></image>
+					<image class="navbar-images" src="@/static/shop/唯品会logo.png" ></image>
 				</view>
 				<view class="navbar-title">
 					购物领券全场优惠
@@ -15,7 +15,7 @@
 		</u-navbar>
 		<!-- 搜索框 -->
 		<u-search v-model="searchValue" placeholder="输入商品名称或粘贴标题" :clearabled="false" margin="30rpx 20rpx"
-			:show-action="true" border-color="#feda2a" :disabled="true" @click="toSearch"
+			:show-action="true" border-color="#feda2a" :disabled="true" @click="toSearch" height="86"
 			:action-style="searchActionStyle" action-text="搜索优惠券" input-style="position: relative;">
 		</u-search>
 		<!-- 商品广告图 -->
@@ -28,30 +28,19 @@
 					<view v-for="(item, index) in adImagesList" :key="index" class="section-bottom-item"
 						@tap="toOtherMiniPrograms" :data-index="index">
 						<image :src="item.icon" mode="aspectFit"></image>
-						<!-- <text>{{item.name}}</text> -->
 					</view>
 				</scroll-view>
 			</view>
 		</view>
 
 		<!-- 中部推销图 -->
-		<view class="wrap" style="padding: 22rpx 18rpx;">
-			<u-row>
-				<u-col span="5">
-					<image src="../../static/shop/o_1f2j4g85brqh8cl1jg916n2ung17.png" mode="widthFix"
-						class="first-image"></image>
-				</u-col>
-				<u-col span="7">
-					<u-row class="goods-to-wrap">
-						<image src="../../static/shop/o_1f2j4gkvf1uuu14f01c9uids81n1c.png" mode="widthFix"
-							class="second-image"></image>
-					</u-row>
-					<u-row style="position: relative;">
-						<image src="../../static/shop/o_1f2j4h3upn5b158ludf16bhqmp1h.png" mode="widthFix"
-							class="third-image"></image>
-					</u-row>
-				</u-col>
-			</u-row>
+		<view class="tx-wrap">
+			<image src="../../static/shop/o_1f2j4g85brqh8cl1jg916n2ung17.png" mode="widthFix"
+				class="first-image"></image>
+			<image src="../../static/shop/o_1f2j4gkvf1uuu14f01c9uids81n1c.png" mode="widthFix"
+				class="second-image"></image>
+			<image src="../../static/shop/o_1f2j4h3upn5b158ludf16bhqmp1h.png" mode="widthFix"
+				class="third-image"></image>
 		</view>
 		<!-- 商品广告图 -->
 		<view style="text-align: center;">
@@ -97,7 +86,7 @@
 					<view class="item-sale" v-f="item.sales>0">已售{{item.sales}}笔</view>
 					<view class="item-money-earn" style="background-color: #FFE262;color: #2D2D2D;">领券下单</view>
 				</view>
-				<u-loadmore style="margin: auto;" :status="loadStatus" font-size="34" @loadmore="loadmore"/>
+				<u-loadmore style="margin: auto;" :status="loadStatus" font-size="26" @loadmore="loadmore"/>
 		    </block>
 			<block v-else>
 			    <u-empty style="margin: 30rpx auto;" text="数据为空" mode="data"></u-empty>

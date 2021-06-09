@@ -19,7 +19,7 @@ export default {
 				"right": "40rpx",
 				"overflow": "visible",
 				"width": "inherit",
-				"line-height": "5rpx",
+				"line-height": "20rpx",
 				"padding": "25rpx",
 				"border-radius": "30rpx",
 				"background-color": "#feda2a"
