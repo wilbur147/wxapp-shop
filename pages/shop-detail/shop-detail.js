@@ -4,6 +4,8 @@ export default {
 			return {
 				item: {},
 				queryParams: {},
+				titleTag: '拼多多',
+				couponTop: 35,
 				collapseHeadStyle: {
 					"padding-left": "26rpx",
 					"background-color": "#ffffff",
@@ -13,6 +15,7 @@ export default {
 		onLoad(opt) {
 			this.queryParams = opt;
 			this.getDetail();
+			this.initTitleTag();
 		},
 		methods: {
 			numFilter(value) {
@@ -31,7 +34,36 @@ export default {
 					// 从新初始话折叠面板
 					that.$nextTick(() => {
 						that.$refs.collapseView.init();
+						
+						// 获取标题高度
+						let info = uni.createSelectorQuery().select(".item-title");
+				　　　  　info.boundingClientRect(function(data) { //data - 各种参数
+						  // 96  60  -36
+						  // 72  40  -32
+						  // 48  15  -33
+						  // 24  0  -24
+						  if(data.height < 48){
+							  that.couponTop = 0;
+						  }else if(data.height >= 48 && data.height < 72){
+							  that.couponTop = 15;
+						  }else if(data.height >= 72 && data.height < 96){
+							  that.couponTop = 40;
+						  }else if(data.height >= 96){
+							  that.couponTop = 60;
+						  }
+				　　    }).exec()
 					})
+					
+				}else{
+					this.$refs.uToast.show({
+						title: '无效商品！',
+						type: 'error',
+						// url: '/pages/shopping/shopping',
+						back: true,
+						isTab: true,
+						position: 'top'
+					})
+					
 				}
 			},
 			async mallTurnChain(){
@@ -49,6 +81,19 @@ export default {
 							// 打开成功
 						}
 					})
+				}
+			},
+			initTitleTag(){
+				switch(this.queryParams.cpType){
+					case 'pdd':
+					this.titleTag = '拼多多';
+					break;
+					case 'jd':
+					this.titleTag = '京东';
+					break;
+					case 'wph':
+					this.titleTag = '唯品会';
+					break;
 				}
 			}
 		}

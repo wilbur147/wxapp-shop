@@ -1,5 +1,6 @@
 <template>
 	<view class="u-bg-gray">
+		<u-toast ref="uToast" />
 		<!-- 详情主图 -->
 		<u-image width="100%" height="830rpx" :src="item.img"></u-image>
 		
@@ -13,10 +14,10 @@
 				<view class="item-sale">已售{{item.sales||0}}笔</view>
 			</view>
 			<view class="title-wrap">
-				<view class="item-cp">拼多多</view>
-				<view class="item-title u-line-2">{{item.goodsName}}</view>
+				<view class="item-cp">{{titleTag}}</view>
+				<view class="item-title">{{item.goodsName}}</view>
 			</view>
-			<view class="item-coupon-wrap"  @click="mallTurnChain">
+			<view class="item-coupon-wrap" :style="'margin-top:'+couponTop+'px;'" v-if="item.discount"  @click="mallTurnChain">
 				<image style="width: 100%;" src="../../static/shop/coupon.png" mode="widthFix"></image>
 				<view class="item-coupon-price">{{numFilter(item.discount)}}</view>
 				<view class="item-coupon-time">{{$u.timeFormat(item.couponStartTime, 'yyyy.mm.dd')}}-{{$u.timeFormat(item.couponEndTime, 'yyyy.mm.dd')}}</view>
@@ -28,11 +29,11 @@
 			<view class="item-shopname u-line-2">{{item.shopName}}</view>
 			<view class="avg-wrap">
 				<view class="avg-title">宝贝描述 {{item.avgDesc}}</view>
-				<u-icon class="avg-icon" :name="item.avgDesc!=''?'arrow-upward':'arrow-downward'" color="#f04044" size="12"></u-icon>
+				<u-icon class="avg-icon" :name="item.avgDesc!='低'?'arrow-upward':'arrow-downward'" color="#f04044" size="12"></u-icon>
 				<view class="avg-title">卖家服务 {{item.avgLgst}}</view>
-				<u-icon class="avg-icon" :name="item.avgLgst!=''?'arrow-upward':'arrow-downward'" color="#f04044" size="12"></u-icon>
+				<u-icon class="avg-icon" :name="item.avgLgst!='低'?'arrow-upward':'arrow-downward'" color="#f04044" size="12"></u-icon>
 				<view class="avg-title">物流服务 {{item.avgServ}}</view>
-				<u-icon class="avg-icon" :name="item.avgServ!=''?'arrow-upward':'arrow-downward'" color="#f04044" size="12"></u-icon>
+				<u-icon class="avg-icon" :name="item.avgServ!='低'?'arrow-upward':'arrow-downward'" color="#f04044" size="12"></u-icon>
 			</view>
 		</view>
 		

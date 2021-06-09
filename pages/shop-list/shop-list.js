@@ -51,7 +51,6 @@ export default {
 				this.priceOrder = 0;
 				if (e === 3) {
 					this.priceOrder = this.priceOrder == 0 ? 1 : this.priceOrder == 1 ? 2 : 1;
-					console.log(this.priceOrder);
 				}
 				this.filterIndex = e;
 				this.clickList();
@@ -85,6 +84,7 @@ export default {
 			clickList(){
 				this.queryParams.page = 1;
 				this.list = [];
+				this.initShopTypeIcon();
 				this.doSearchList(true);
 			},
 			async doSearchList(e){
@@ -171,7 +171,7 @@ export default {
 					this.shopTypeIcon = '../../static/shop/pdd_logo.png';
 					break;
 					case 'jd':
-					this.shopTypeIcon = '../../static/shop/jd_logo.png';
+					this.shopTypeIcon = '../../static/shop/京东logo.png	';
 					break;
 					case 'wph':
 					this.shopTypeIcon = '../../static/shop/wph_logo.png';

@@ -63,15 +63,15 @@
 			<u-row :gutter="100">
 				<u-col :span="4">
 					<view class="type-title" @click="switchCpType('pdd')">拼多多</view>
-					<view class="type-desc type-active">精选宝贝</view>
+					<view class="type-desc" :class="{active: queryParams.cpType == 'pdd'}">精选宝贝</view>
 				</u-col>
 				<u-col :span="4">
 					<view class="type-title" @click="switchCpType('jd')">京东</view>
-					<view class="type-desc">件件必抢</view>
+					<view class="type-desc" :class="{active: queryParams.cpType == 'jd'}">件件必抢</view>
 				</u-col>
 				<u-col :span="4">
 					<view class="type-title" @click="switchCpType('wph')">唯品会</view>
-					<view class="type-desc">品牌特卖</view>
+					<view class="type-desc" :class="{active: queryParams.cpType == 'wph'}">品牌特卖</view>
 				</u-col>
 			</u-row>
 		</view>

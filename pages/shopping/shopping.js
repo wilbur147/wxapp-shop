@@ -61,8 +61,10 @@ export default {
 		this.loadmore();
 	},
 	methods: {
-		async loadGoodsList(){
+		async loadGoodsList(e){
+			if (e) {uni.showLoading({title:"加载中..."})}
 			const result = await request({url: '/program/mall/mallList'+this.$u.queryParams(this.queryParams), method: 'GET'});
+			if (e) {uni.hideLoading();}
 			if (result.code == 200) {
 				this.searchId = result.data.searchId;
 				this.list = [...this.list,...result.data.goodsList];
@@ -83,6 +85,11 @@ export default {
 		},
 		switchCpType(type){
 			this.queryParams.cpType = type;
+			
+			this.queryParams.page = 1;
+			this.list = [];
+			this.initShopTypeIcon();
+			this.loadGoodsList(true);
 		},
 		loadmore(){
 			if(this.loadStatus == 'nomore') return;
@@ -114,7 +121,7 @@ export default {
 				this.shopTypeIcon = '../../static/shop/pdd_logo.png';
 				break;
 				case 'jd':
-				this.shopTypeIcon = '../../static/shop/jd_logo.png';
+				this.shopTypeIcon = '../../static/shop/jd_logo.ico';
 				break;
 				case 'wph':
 				this.shopTypeIcon = '../../static/shop/wph_logo.png';
