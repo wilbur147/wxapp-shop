@@ -4,9 +4,9 @@
 		<u-navbar :is-back="false" :background="background">
 			<view class="slot-wrap">
 				<view class="u-flex-c">
-					<image class="navbar-images" src="@/static/shop/拼多多logo.png" ></image>
-					<image class="navbar-images" src="@/static/shop/京东logo.png" ></image>
-					<image class="navbar-images" src="@/static/shop/唯品会logo.png" ></image>
+					<image class="navbar-images" src="/static/shop/pdd_logo_1.png" mode="widthFix"></image>
+					<image class="navbar-images" src="/static/shop/jd_logo_1.png"  mode="widthFix"></image>
+					<image class="navbar-images" src="/static/shop/wph_logo_1.png" mode="widthFix"></image>
 				</view>
 				<view class="navbar-title">
 					购物领券全场优惠
@@ -76,14 +76,14 @@
 					    <view class="item-price-prefix">￥</view>
 					    <view class="item-price">{{numFilter(item.priceAfter)}}</view>
 					</view>
-					<view class="item-coupon-box">
+					<view class="item-coupon-box" v-if="item.discount>0">
 					    <image src="../../static/shop/img_coupon.png" style="width:100%;height:100%"></image>
 					    <view class="item-coupon-prefix">券</view>
 					    <view class="item-coupon-price">{{numFilter(item.discount)}}元</view>
 					</view>
 					<view class="item-line"></view>
 					<view class="item-price-origin">￥{{numFilter(item.price)}}</view>
-					<view class="item-sale" v-f="item.sales>0">已售{{item.sales}}笔</view>
+					<view class="item-sale" v-if="item.sales>0">已售{{item.sales}}笔</view>
 					<view class="item-money-earn" style="background-color: #FFE262;color: #2D2D2D;">领券下单</view>
 				</view>
 				<u-loadmore style="margin: auto;" :status="loadStatus" font-size="26" @loadmore="loadmore"/>

@@ -75,8 +75,8 @@ export default {
 				this.clickList();
 			},
 			numFilter(value) {
-				if (0 == value || '' == value) {
-					return value;
+				if (0 == value || '' == value || undefined == value) {
+					return 0;
 				}
 			 const fenStr = '00' + Number.parseInt(value.toString()).toString()
 				return Number.parseFloat(fenStr.replace(/^(\d+?)(\d{2})$/g, '$1.$2'))
@@ -171,7 +171,7 @@ export default {
 					this.shopTypeIcon = '../../static/shop/pdd_logo.png';
 					break;
 					case 'jd':
-					this.shopTypeIcon = '../../static/shop/京东logo.png	';
+					this.shopTypeIcon = '../../static/shop/jd_logo.ico';
 					break;
 					case 'wph':
 					this.shopTypeIcon = '../../static/shop/wph_logo.png';

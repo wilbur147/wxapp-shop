@@ -20,7 +20,7 @@ export default {
 		methods: {
 			numFilter(value) {
 				if (0 == value || '' == value || undefined == value) {
-					return value;
+					return 0;
 				}
 				const fenStr = '00' + Number.parseInt(value.toString()).toString()
 				return Number.parseFloat(fenStr.replace(/^(\d+?)(\d{2})$/g, '$1.$2'))

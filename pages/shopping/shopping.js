@@ -77,10 +77,10 @@ export default {
 		},
 		
 		numFilter (value) {
-			if (0 == value || '' == value) {
-				return value;
+			if (0 == value || '' == value || undefined == value) {
+				return 0;
 			}
-		 const fenStr = '00' + Number.parseInt(value.toString()).toString()
+			const fenStr = '00' + Number.parseInt(value.toString()).toString()
 			return Number.parseFloat(fenStr.replace(/^(\d+?)(\d{2})$/g, '$1.$2'))
 		},
 		switchCpType(type){

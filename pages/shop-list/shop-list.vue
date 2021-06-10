@@ -50,14 +50,14 @@
 						    <view class="item-price-prefix">￥</view>
 						    <view class="item-price">{{numFilter(item.priceAfter)}}</view>
 						</view>
-						<view class="item-coupon-box">
+						<view class="item-coupon-box" v-if="item.discount>0">
 						    <image src="../../static/shop/img_coupon.png" style="width:100%;height:100%"></image>
 						    <view class="item-coupon-prefix">券</view>
 						    <view class="item-coupon-price">{{numFilter(item.discount)}}元</view>
 						</view>
 						<view class="item-line"></view>
 						<view class="item-price-origin">￥{{numFilter(item.price)}}</view>
-						<view class="item-sale" v-f="item.sales>0">已售{{item.sales}}笔</view>
+						<view class="item-sale" v-if="item.sales>0">已售{{item.sales}}笔</view>
 						<view class="item-money-earn" style="background-color: #ff6052;color: #FFFFFF;">领券下单</view>
 					</view>
 					<u-loadmore style="margin: auto;" :status="loadStatus" font-size="26" @loadmore="loadmore"/>

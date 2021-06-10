@@ -11,7 +11,7 @@
 				<view class="price-item">{{numFilter(item.priceAfter)}}</view>
 				<view class="price-item-end">券后</view>
 				<view class="item-price-origin">￥{{numFilter(item.price)}}</view>
-				<view class="item-sale">已售{{item.sales||0}}笔</view>
+				<view class="item-sale" v-if="item.sales>0">已售{{item.sales}}笔</view>
 			</view>
 			<view class="title-wrap">
 				<view class="item-cp">{{titleTag}}</view>
