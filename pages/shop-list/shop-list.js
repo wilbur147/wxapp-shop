@@ -6,11 +6,13 @@ export default {
 				filterIndex: 0,
 				priceOrder: 0,
 				tabCurrent: 1,
-				jumpType: 'search',
 				list: [],
+				navbarTitle: '',
 				loadStatus: 'loadmore',
 				searchId: '',
+				jumpType: 'search',
 				shopTypeIcon: '',
+				fixdTop: 300,
 				queryParams: {
 					page: 1,
 					pageSize: 10,
@@ -26,16 +28,22 @@ export default {
 		},
 		onLoad(opt) {
 			// 动态设置标题
-			uni.setNavigationBarTitle({
-			　　title:opt.barTitle
-			})
+			// uni.setNavigationBarTitle({
+			// 　　title:opt.barTitle
+			// })
+			this.navbarTitle = opt.barTitle;
 			this.queryParams.searchStr = opt.keywords;
 			this.jumpType = opt.jumpType;
+			if (this.jumpType != 'search') {
+				this.queryParams.cpType = opt.jumpType;
+			}
 			this.doSearchList();
 			// 动态设置商家图标
 			this.initShopTypeIcon();
 			// 动态设置scroll的高度
 			this.initHeight();
+			// 动态定位顶部导航的高度
+			this.initFixdTop();
 		},
 		methods: {
 			initHeight(){
@@ -43,7 +51,13 @@ export default {
 				    uni.getSystemInfo({
 				      success: function (res) {
 				        const height = res.windowHeight - 150;
-						_this.scrollHeight = 'height: ' + (height * 2) + 'rpx'
+						let h2 = height * 2;
+						if (_this.jumpType != 'search') {
+							h2 += 100;
+							_this.scrollHeight = 'height: ' + h2 + 'rpx;margin-top: 200rpx;'
+						}else{
+							_this.scrollHeight = 'height: ' + h2 + 'rpx'
+						}
 				      }
 				    })
 			},
@@ -102,6 +116,8 @@ export default {
 					}else{
 						this.loadStatus = 'loadmore';
 					}
+				}else{
+					this.loadGoodsList(true);
 				}
 			},
 			goDetail(item){
@@ -169,13 +185,21 @@ export default {
 				switch(this.queryParams.cpType){
 					case 'pdd':
 					this.shopTypeIcon = '../../static/shop/pdd_logo.png';
+					this.tabCurrent = 1;
 					break;
 					case 'jd':
 					this.shopTypeIcon = '../../static/shop/jd_logo.ico';
+					this.tabCurrent = 0;
 					break;
 					case 'wph':
 					this.shopTypeIcon = '../../static/shop/wph_logo.png';
+					this.tabCurrent = 2;
 					break;
+				}
+			},
+			initFixdTop(){
+				if (this.jumpType != 'search') {
+					this.fixdTop = 200;
 				}
 			}
 		}

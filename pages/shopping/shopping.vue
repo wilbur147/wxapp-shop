@@ -20,14 +20,13 @@
 		</u-search>
 		<!-- 商品广告图 -->
 		<view style="text-align: center;">
-			<image src="../../static/shop/o_1f73id996g9mfok1bc4tsg51312.png" mode="widthFix" class="ad-image"></image>
+			<image :src="adOne.src" @click="toPath(adOne.item)" mode="widthFix" class="ad-image"></image>
 		</view>
 		<view class="section">
 			<view class="section-bottom">
 				<scroll-view class="scroll-view_X" scroll-x="true">
-					<view v-for="(item, index) in adImagesList" :key="index" class="section-bottom-item"
-						@tap="toOtherMiniPrograms" :data-index="index">
-						<image :src="item.icon" mode="aspectFit"></image>
+					<view v-for="(item, index) in features" :key="index" class="section-bottom-item">
+						<image :src="item.src" @click="toPath(item)" mode="aspectFit"></image>
 					</view>
 				</scroll-view>
 			</view>
@@ -35,16 +34,16 @@
 
 		<!-- 中部推销图 -->
 		<view class="tx-wrap">
-			<image src="../../static/shop/o_1f2j4g85brqh8cl1jg916n2ung17.png" mode="widthFix"
+			<image :src="bigAdImges[0].src" @click="toPath(bigAdImges[0])" mode="widthFix"
 				class="first-image"></image>
-			<image src="../../static/shop/o_1f2j4gkvf1uuu14f01c9uids81n1c.png" mode="widthFix"
+			<image :src="bigAdImges[1].src" @click="toPath(bigAdImges[1])" mode="widthFix"
 				class="second-image"></image>
-			<image src="../../static/shop/o_1f2j4h3upn5b158ludf16bhqmp1h.png" mode="widthFix"
+			<image :src="bigAdImges[2].src" @click="toPath(bigAdImges[2])" mode="widthFix"
 				class="third-image"></image>
 		</view>
 		<!-- 商品广告图 -->
 		<view style="text-align: center;">
-			<image src="../../static/shop/o_1f5il8ed71bs913pta30ttakp612.gif" mode="widthFix" class="ad-image"></image>
+			<image :src="adSecond.src" @click="toPath(adSecond.item)" mode="widthFix" class="ad-image"></image>
 		</view>
 
 		<!-- 分类商品分隔栏 -->

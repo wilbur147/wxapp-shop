@@ -1,14 +1,22 @@
 <template>
 	<view class="u-bg-gray">
+		<!-- 导航栏 -->
+		<u-navbar>
+			<view class="slot-wrap">
+				<view class="navbar-title">
+					{{navbarTitle}}
+				</view>
+			</view>
+		</u-navbar>
 		<!-- 搜索框 -->
-		<view class="search-box" v-if="jumpType == 'search'">
+		<view class="search-box" :style="{ top: `${fixdTop - 120}rpx`, }" v-if="jumpType == 'search'">
 			<u-search v-model="queryParams.searchStr" placeholder="输入宝贝关键字" :clearabled="true" margin="30rpx 20rpx"
 			:show-action="true" action-text="搜索" :animation="false"
 			 @custom="toSearch">
 			</u-search>
 		</view>
 		<!-- shopType -->
-		<view class="shop-type-box">
+		<view class="shop-type-box" :style="'top: '+fixdTop+'rpx;'">
 			<u-tabs-swiper :list="shopTypeList" is-scroll="true" 
 			active-color="#ff6052" inactive-color="#757575" 
 			font-size="32" :current="tabCurrent" swiperWidth="750" gutter="160"
@@ -16,7 +24,7 @@
 			@change="toSwitch"></u-tabs-swiper>
 		</view>
 		<!-- navbar -->
-		<view class="navbar">
+		<view class="navbar" :style="{ top: `${fixdTop + 100}rpx`, }" >
 			<view class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)">
 				综合
 			</view>
@@ -40,7 +48,7 @@
 		</view>
 		<!-- 商品信息列表 -->
 		<scroll-view scroll-y="false" :style="scrollHeight" class="scroll-Y" @scrolltolower="lower">
-			<view class="item-list" :style="scrollHeight">
+			<view class="item-list">
 				<block v-if="list&&list.length">
 					<view  @click="goDetail(item)" class="item-item" v-for="(item,index) in list" :key="index">
 						<u-lazy-load class="item-thumbnail" :image="item.img" threshold="300"></u-lazy-load>

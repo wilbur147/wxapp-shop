@@ -47,10 +47,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-				"app-plus": {
-					//app页面不显示滚动条
-					"scrollIndicator": "none"
-				}
+				"navigationStyle": "custom"
             }
             
         }

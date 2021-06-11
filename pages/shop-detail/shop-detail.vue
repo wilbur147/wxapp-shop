@@ -41,7 +41,7 @@
 		<view class="shop-picturl-box">
 			<u-collapse :head-style="collapseHeadStyle"  ref="collapseView">
 				<u-collapse-item title="宝贝详情" :open="true">
-					<view style="margin-bottom: 10rpx;" v-for="(item,index) in item.imges" :key="index">
+					<view v-for="(item,index) in item.imges" :key="index">
 						<u-image width="100%" height="750rpx" :src="item"></u-image>
 					</view>
 				</u-collapse-item>

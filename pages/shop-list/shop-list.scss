@@ -1,3 +1,9 @@
+.navbar-title{
+	font-size: 30rpx;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+}	
 .navbar,.search-box,.shop-type-box{
 	position: fixed;
 	left: 0;
@@ -78,6 +84,7 @@
 	margin-top: 300rpx;
 	.item-list{
 		width: 100%;
+		height: 100%;
 		display: flex;
 		flex-wrap: wrap;
 		background-color: rgb(240, 240, 240);
