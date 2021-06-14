@@ -19,10 +19,10 @@
 			:action-style="searchActionStyle" action-text="搜索优惠券" input-style="position: relative;">
 		</u-search>
 		<!-- 商品广告图 -->
-		<view style="text-align: center;">
+		<view style="text-align: center;" v-if="adOne">
 			<image :src="adOne.src" @click="toPath(adOne.item)" mode="widthFix" class="ad-image"></image>
 		</view>
-		<view class="section">
+		<view class="section"  v-if="features">
 			<view class="section-bottom">
 				<scroll-view class="scroll-view_X" scroll-x="true">
 					<view v-for="(item, index) in features" :key="index" class="section-bottom-item">
@@ -33,7 +33,7 @@
 		</view>
 
 		<!-- 中部推销图 -->
-		<view class="tx-wrap">
+		<view class="tx-wrap"  v-if="bigAdImges">
 			<image :src="bigAdImges[0].src" @click="toPath(bigAdImges[0])" mode="widthFix"
 				class="first-image"></image>
 			<image :src="bigAdImges[1].src" @click="toPath(bigAdImges[1])" mode="widthFix"
@@ -42,7 +42,7 @@
 				class="third-image"></image>
 		</view>
 		<!-- 商品广告图 -->
-		<view style="text-align: center;">
+		<view style="text-align: center;"  v-if="adSecond">
 			<image :src="adSecond.src" @click="toPath(adSecond.item)" mode="widthFix" class="ad-image"></image>
 		</view>
 
@@ -78,14 +78,14 @@
 					<view class="item-coupon-box" v-if="item.discount>0">
 					    <image src="../../static/shop/img_coupon.png" style="width:100%;height:100%"></image>
 					    <view class="item-coupon-prefix">券</view>
-					    <view class="item-coupon-price">{{numFilter(item.discount)}}元</view>
+					    <view class="item-coupon-price">{{numFilter(item.discount)}}</view>
 					</view>
 					<view class="item-line"></view>
 					<view class="item-price-origin">￥{{numFilter(item.price)}}</view>
-					<view class="item-sale" v-if="item.sales>0">已售{{item.sales}}笔</view>
+					<view class="item-sale"  v-if="item.sales">已售{{item.sales || 0}}笔</view>
 					<view class="item-money-earn" style="background-color: #FFE262;color: #2D2D2D;">领券下单</view>
 				</view>
-				<u-loadmore style="margin: auto;" :status="loadStatus" font-size="26" @loadmore="loadmore"/>
+				<u-loadmore style="margin: auto;width: 100%;" :status="loadStatus" font-size="26" @loadmore="loadmore"/>
 		    </block>
 			<block v-else>
 			    <u-empty style="margin: 30rpx auto;" text="数据为空" mode="data"></u-empty>

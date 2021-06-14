@@ -1,70 +1,59 @@
-.slot-wrap{
-	display: flex;
-	.u-flex-c {
-		padding-left: 22rpx;
+.top-wrap{
+	height: 330rpx;
+	width: 100%;
+	background-color: #feda2a;
+	.title-wrap{
+		width: 100%;
+		height: 120rpx;
 		display: flex;
-		flex: 5;
-		justify-content: start;
-		align-items: center;
-		.navbar-images {
-			width: 40rpx;
-			height: 40rpx;
-			border-radius: 50%;
-			border: 2rpx solid #FFFFFF;
+		.item-image{
+			flex: 4.5;
+			text-align: right;
+			margin-top: 20rpx;
+			image{
+				border-radius: 20rpx;
+				width: 90rpx;
+				height: 90rpx;
+				background-color: #ffffff;
+			}
+		
+		}
+		.item-text-wrap{
+			flex: 7.5;
+			margin-left: 15rpx;
+			margin-top: 20rpx;
+			.text-top{
+				font-size: 38rpx;
+				font-weight: 700;
+			}
+			.text-bottom{
+				font-size: 24rpx;
+				font-weight: 400;
+				margin-top: 5rpx;
+			}
 		}
 	}
-	.navbar-title{
-		font-size: 32rpx;
-		font-weight: 700;
+	
+	.step-wrap{
 		display: flex;
-		flex: 10;
-		justify-content: start;
-		align-items: center;
-		padding-left: 12rpx;
+		flex-wrap: wrap;
+		padding-left: 25rpx;
+		.num{
+			width: 32rpx;
+			height: 32rpx;
+			background-color: #ffefa1;
+			text-align: center;
+			border-radius: 50%;
+			font-size: 22rpx;
+		}
+		.text{
+			font-size: 24rpx;
+			font-weight: 400;
+			margin-right: 40rpx;
+			color: #59512c;
+		}
 	}
 }
-
-.tx-wrap{
-	position: relative;
-	padding: 22rpx 18rpx;
-	height: 427rpx;
-	.first-image {
-		position: absolute;
-		left: 20rpx;
-		top: 18rpx;
-		width: 306rpx;
-		height: 392rpx!important;
-		border-top-left-radius: 20rpx;
-		border-bottom-left-radius: 30rpx;
-	}
-	
-	.second-image {
-		width: 410rpx;
-		height: 210rpx;
-		position: absolute;
-		top: 18rpx;
-		right: 18rpx;
-		border-top-right-radius: 20rpx;
-	}
-	
-	.third-image {
-		width: 410rpx;
-		height: 210rpx;
-		position: absolute;
-		top: 214rpx;
-		right: 18rpx;
-		border-bottom-right-radius: 20rpx;
-	}
-}
-
-
-.ad-image {
-	border-radius: 30rpx;
-	margin: 0rpx auto;
-	width: 94%;
-	height: 190rpx !important;
-}
-
 
 .section {
 	width: 100vw;
@@ -101,6 +90,11 @@
 					height: 15vw;
 					margin: auto;
 				}
+				
+				.name{
+					font-size: 24rpx;
+					color: #59512c;
+				}
 
 				text {
 					color: #707070;
@@ -116,38 +110,9 @@
 	}
 }
 
-.sell-wrap {
-	border-radius: 15rpx;
-	background-color: #FFFFFF;
-	width: 95%;
-	height: 160rpx;
-	margin: 20rpx auto;
-
-	.type-title {
-		font-size: 34rpx;
-		font-weight: 600;
-		margin-bottom: 15rpx;
-		text-align: center;
-		margin-top: 34rpx;
-	}
-
-	.type-desc {
-		font-size: 22rpx;
-		text-align: center;
-		height: 40rpx;
-		line-height: 40rpx;
-		width: 140rpx;
-		margin: auto;
-		&.active {
-			background-color: #feda2a;
-			border-radius: 30rpx;
-		}
-	}
-
-}
-
 .item-list{
 	width: 100%;
+	min-height: 280px;
 	display: flex;
 	flex-wrap: wrap;
 	.item-item {

@@ -1,5 +1,6 @@
 // const baseUrl = 'http://localhost:6001'
-const baseUrl = 'http://q9dwik9g.dongtaiyuming.net'
+// const baseUrl = 'http://q9dwik9g.dongtaiyuming.net'
+const baseUrl = 'https://tacp.weiye.link/prod-api'
 export const request = (params) => {
 	// 判断路径包含前缀没有，包含了就用原始路径
 	let urlflag = false;
@@ -16,7 +17,8 @@ export const request = (params) => {
 			},
 			fail: (err) => {
 				uni.showToast({
-					title: '请求接口失败'
+					title: '请求接口失败',
+					icon: 'none'
 				});
 				reject(err);
 			},

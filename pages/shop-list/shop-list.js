@@ -12,7 +12,7 @@ export default {
 				searchId: '',
 				jumpType: 'search',
 				shopTypeIcon: '',
-				fixdTop: 300,
+				fixdTop: 122,
 				queryParams: {
 					page: 1,
 					pageSize: 10,
@@ -21,50 +21,54 @@ export default {
 					withCoupon: '',
 					catId: 0,
 					sortType: 0,
+					channelType: 0,
 				},
 				scrollHeight: 'height: 1000rpx',
 				shopTypeList: [{name: '京东'}, {name: '拼多多'}, {name: '唯品会'}]
 			};
 		},
 		onLoad(opt) {
-			// 动态设置标题
-			// uni.setNavigationBarTitle({
-			// 　　title:opt.barTitle
-			// })
-			this.navbarTitle = opt.barTitle;
+			this.navbarTitle = opt.title;
 			this.queryParams.searchStr = opt.keywords;
 			this.jumpType = opt.jumpType;
 			if (this.jumpType != 'search') {
 				this.queryParams.cpType = opt.jumpType;
+				this.queryParams.channelType = opt.channelType;
 			}
 			this.doSearchList();
 			// 动态设置商家图标
 			this.initShopTypeIcon();
 			// 动态设置scroll的高度
 			this.initHeight();
-			// 动态定位顶部导航的高度
-			this.initFixdTop();
 		},
 		methods: {
 			initHeight(){
 				var _this = this
 				    uni.getSystemInfo({
 				      success: function (res) {
-				        const height = res.windowHeight - 150;
-						let h2 = height * 2;
-						if (_this.jumpType != 'search') {
-							h2 += 100;
-							_this.scrollHeight = 'height: ' + h2 + 'rpx;margin-top: 200rpx;'
-						}else{
-							_this.scrollHeight = 'height: ' + h2 + 'rpx'
-						}
+								let info = uni.createSelectorQuery().select(".navbar-wrap");
+						　　　  　	info.boundingClientRect(function(data) { //data - 各种参数
+						　　　  　	let navbarHeight = data.height;  // 获取元素高度
+											_this.fixdTop = 54 + navbarHeight;
+											if (_this.jumpType != 'search') {
+												_this.fixdTop -= 50;
+												const height = res.windowHeight - navbarHeight - 44;
+												_this.scrollHeight = 'height: '+height+'px;margin-top: 44px;'
+											}else{
+												const height = res.windowHeight - navbarHeight - 142;
+												_this.scrollHeight = 'height: ' +height+'px;margin-top: 142px;';
+											}
+						　　    }).exec()
 				      }
 				    })
+						
+						 
 			},
 			tabClick(e){
-				this.priceOrder = 0;
 				if (e === 3) {
-					this.priceOrder = this.priceOrder == 0 ? 1 : this.priceOrder == 1 ? 2 : 1;
+					this.priceOrder = this.priceOrder == 0 ? 1 : 0;
+				}else{
+					this.priceOrder = 0;
 				}
 				this.filterIndex = e;
 				this.clickList();
@@ -106,7 +110,11 @@ export default {
 				this.queryParams.withCoupon = this.couponChecked ? '0': '1';
 				// 获取排序类型
 				await this.getSortType();
-				const result = await request({url: '/program/mall/mallList'+this.$u.queryParams(this.queryParams), method: 'GET'});
+				let url = '/program/mall/mallList';
+				if (this.jumpType != 'search') {
+					url = '/program/mall/mallChannelList'
+				}
+				const result = await request({url: url+this.$u.queryParams(this.queryParams), method: 'GET'});
 				if (e) {uni.hideLoading();}
 				if (result.code == 200) {
 					this.searchId = result.data.searchId;
@@ -121,13 +129,8 @@ export default {
 				}
 			},
 			goDetail(item){
-				this.$u.route({
-					url: 'pages/shop-detail/shop-detail',
-					params: {
-						"goodsId": item.goodsId,
-						"searchId": this.searchId,
-						"cpType": this.queryParams.cpType
-					}
+				wx.navigateTo({
+					url: '../shop-detail/shop-detail?goodsId='+item.goodsId+'&searchId='+this.searchId+'&cpType='+this.queryParams.cpType
 				})
 			},
 			loadmore(){
@@ -145,38 +148,27 @@ export default {
 			getSortType(){
 				const that = this;
 				return new Promise((resolve, reject) => {
-					// 1. 筛选当前选择的商家类型
-					switch(that.queryParams.cpType){
-						case 'pdd':
-						if(that.filterIndex === 0){
-							that.queryParams.sortType = 0;// 综合
-						}else if(that.filterIndex === 1){
-							that.queryParams.sortType = 5;// 销量
-						}else if(that.filterIndex === 2){
-							that.queryParams.sortType = 11;// 最新
-						}else if(that.filterIndex === 3){
-							// 价格
-							if(that.priceOrder == 1){
-								// 升序
-								that.queryParams.sortType = 3;
-							}else{
-								// 降序
-								that.queryParams.sortType = 4;
-							}
-						}
-						// 是否过滤无券
-						if(that.couponChecked){
-							that.queryParams.withCoupon = 1;
+					if(that.filterIndex === 0){
+						that.queryParams.sortType = 0;// 综合
+					}else if(that.filterIndex === 1){
+						that.queryParams.sortType = 1;// 销量
+					}else if(that.filterIndex === 2){
+						that.queryParams.sortType = 2;// 最新
+					}else if(that.filterIndex === 3){
+						// 价格
+						if(that.priceOrder == 1){
+							// 升序
+							that.queryParams.sortType = 3;
 						}else{
-							that.queryParams.withCoupon = 0;
+							// 降序
+							that.queryParams.sortType = 4;
 						}
-						break;
-						case 'jd':
-						
-						break;
-						case 'wph':
-						
-						break;
+					}
+					// 是否过滤无券
+					if(that.couponChecked){
+						that.queryParams.withCoupon = 1;
+					}else{
+						that.queryParams.withCoupon = 0;
 					}
 					resolve(true);
 				})
@@ -195,11 +187,6 @@ export default {
 					this.shopTypeIcon = '../../static/shop/wph_logo.png';
 					this.tabCurrent = 2;
 					break;
-				}
-			},
-			initFixdTop(){
-				if (this.jumpType != 'search') {
-					this.fixdTop = 200;
 				}
 			}
 		}

@@ -2,15 +2,7 @@ import {request} from "../../utils/request";
 export default {
 	data() {
 		return {
-			background: {
-				// backgroundColor: '#001f3f',
-				// 导航栏背景图
-				// background: 'url(https://cdn.uviewui.com/uview/swiper/1.jpg) no-repeat',
-				// 还可以设置背景图size属性
-				// backgroundSize: 'cover',
-				// 渐变色
-				backgroundImage: 'linear-gradient(45deg, #feda2a, #d4d332)'
-			},
+			title: '拼多多',
 			searchValue: "",
 			searchActionStyle: {
 				"position": "absolute",
@@ -20,47 +12,17 @@ export default {
 				"line-height": "20rpx",
 				"padding": "25rpx",
 				"border-radius": "30rpx",
-				"background-color": "#feda2a"
+				"background-color": "#feda2a",
+				"color": "#59512c"
 			},
-			bigAdImges: [
-				{
-					src: '../../static/shop/o_1f2j4g85brqh8cl1jg916n2ung17.png',
-					toType: 1,
-					toPath: {
-						page_path: 'pages/shop-list/shop-list',
-						title: '新人特惠',
-						jumpType: 'pdd',
-						channelType: '1'
-					}
-				},
-				{
-					src: '../../static/shop/o_1f2j4gkvf1uuu14f01c9uids81n1c.png',
-					toType: 1,
-					toPath: {
-						page_path: 'pages/shop-list/shop-list',
-						title: '今日爆款',
-						jumpType: 'pdd',
-						channelType: '3'
-					}
-				},
-				{
-					src: '../../static/shop/o_1f2j4h3upn5b158ludf16bhqmp1h.png',
-					toType: 1,
-					toPath: {
-						page_path: 'pages/shop-list/shop-list',
-						title: '大额优惠',
-						jumpType: 'pdd',
-						channelType: '7'
-					}
-				},
-			],
 			features: [],
-			adOne: {},
-			adSecond: {},
+			shopTypeList: [{name: '推荐', catId: 0}],
+			tabCurrent: 0,
 			queryParams: {
 				cpType: 'pdd',
 				page: 1,
-				pageSize: 10
+				pageSize: 10,
+				catId: 0
 			},
 			loadStatus: 'loadmore',
 			list: [],
@@ -68,10 +30,17 @@ export default {
 			shopTypeIcon: '',
 		}
 	},
-	onLoad() {
-		// 加载商城首页
-		this.loadMallIndex();
-		// 加载商品列表
+	onLoad(e) {
+		uni.setNavigationBarTitle({
+				title: e.title
+		});
+		this.title = e.title;
+		this.queryParams.cpType = e.jumpType;
+		// // 加载商城贴图列表
+		this.loadMallTexture();
+		// // 加载商城分类
+		this.loadMallClass();
+		// // 加载商品列表
 		this.loadGoodsList();
 		this.initShopTypeIcon();
 	},
@@ -79,14 +48,24 @@ export default {
 		this.loadmore();
 	},
 	methods: {
-		async loadMallIndex(){
-			const result = await request({url: '/program/mall/mallIndex', method: 'GET'});
+		async loadMallTexture(){
+			const result = await request({url: '/program/mall/mallSecondIcon'+this.$u.queryParams(this.queryParams), method: 'GET'});
 			if (result.code == 200) {
-				this.adOne = result.data.adOne;
-				this.features = result.data.features;
-				this.adSecond = result.data.adSecond;
-				this.bigAdImges = result.data.bigAdImges;
+				if (result.code == 200) {
+					this.features = result.data.features;
+				}
 			}
+		},
+		async loadMallClass(){
+			const result = await request({url: '/program/mall/mallClass'+this.$u.queryParams(this.queryParams), method: 'GET'});
+			if (result.code == 200) {
+				this.shopTypeList = [...this.shopTypeList,...result.data];
+			}
+		},
+		toSwitch(e){
+			this.tabCurrent = e;
+			this.queryParams.catId = this.shopTypeList[e].catId;
+			this.clickList();
 		},
 		async loadGoodsList(e){
 			if (e) {uni.showLoading({title:"加载中..."})}
@@ -104,21 +83,17 @@ export default {
 				this.loadGoodsList(true);
 			}
 		},
-		
+		clickList(){
+			this.queryParams.page = 1;
+			this.list = [];
+			this.loadGoodsList(true);
+		},
 		numFilter (value) {
 			if (0 == value || '' == value || undefined == value) {
 				return 0;
 			}
 			const fenStr = '00' + Number.parseInt(value.toString()).toString()
 			return Number.parseFloat(fenStr.replace(/^(\d+?)(\d{2})$/g, '$1.$2'))
-		},
-		switchCpType(type){
-			this.queryParams.cpType = type;
-			
-			this.queryParams.page = 1;
-			this.list = [];
-			this.initShopTypeIcon();
-			this.loadGoodsList(true);
 		},
 		loadmore(){
 			if(this.loadStatus == 'nomore') return;

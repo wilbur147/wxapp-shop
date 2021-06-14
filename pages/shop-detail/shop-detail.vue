@@ -11,7 +11,7 @@
 				<view class="price-item">{{numFilter(item.priceAfter)}}</view>
 				<view class="price-item-end">券后</view>
 				<view class="item-price-origin">￥{{numFilter(item.price)}}</view>
-				<view class="item-sale" v-if="item.sales>0">已售{{item.sales}}笔</view>
+				<view class="item-sale" v-if="item.sales">已售{{item.sales}}笔</view>
 			</view>
 			<view class="title-wrap">
 				<view class="item-cp">{{titleTag}}</view>
@@ -50,7 +50,7 @@
 		
 		<!-- 底部功能栏 -->
 		<view class="footer-features-box">
-			<view class="shop-index-wrap">
+			<view class="shop-index-wrap" @click="toShopIndex">
 				<view class="item-index-icon">
 					<u-icon name="home" color="#5e5e5e" size="60"></u-icon>
 				</view>

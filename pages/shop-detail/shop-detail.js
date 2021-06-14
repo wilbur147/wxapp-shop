@@ -83,6 +83,11 @@ export default {
 					})
 				}
 			},
+			toShopIndex(){
+				wx.switchTab({
+					url: '../shopping/shopping'
+				})
+			},
 			initTitleTag(){
 				switch(this.queryParams.cpType){
 					case 'pdd':

@@ -46,8 +46,21 @@
             "path" : "pages/shop-list/shop-list",
             "style" :                                                                                    
             {
+							"navigationBarTitleText": "",
+							"navigationStyle": "custom"
+							// 配置页面不能上下滚动
+							// "disableScroll": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/shop-second-page/shop-second-page",
+            "style" :                                                                                    
+            {
                 "navigationBarTitleText": "",
-				"navigationStyle": "custom"
+                "enablePullDownRefresh": false,
+								"navigationBarBackgroundColor": "#feda2a",
+								"backgroundColor": "#feda2a"
             }
             
         }

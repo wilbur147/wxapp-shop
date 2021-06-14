@@ -187,13 +187,8 @@
 					icon: 'none',
 					duration: 2000
 				});
-				this.$u.route({
-					url: 'pages/shop-list/shop-list',
-					params: {
-						"keywords": keyword,
-						"jumpType": 'search',
-						"barTitle": "搜索"
-					}
+				wx.navigateTo({
+					url: '../shop-list/shop-list?keywords='+keyword+'&jumpType=search&barTitle=搜索'
 				})
 				//以下是示例跳转淘宝搜索，可自己实现搜索逻辑
 				/*
