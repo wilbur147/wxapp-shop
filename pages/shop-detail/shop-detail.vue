@@ -13,14 +13,40 @@
 				<view class="item-price-origin">￥{{numFilter(item.price)}}</view>
 				<view class="item-sale" v-if="item.sales">已售{{item.sales}}笔</view>
 			</view>
-			<view class="title-wrap">
+			<view class="title-wrap" :style="'height:'+boxTitleHe+'px;'">
 				<view class="item-cp">{{titleTag}}</view>
 				<view class="item-title">{{item.goodsName}}</view>
 			</view>
-			<view class="item-coupon-wrap" :style="'margin-top:'+couponTop+'px;'" v-if="item.discount>0"  @click="mallTurnChain">
-				<image style="width: 100%;" src="../../static/shop/coupon.png" mode="widthFix"></image>
+			<view class="item-coupon-wrap" v-if="item.discount>0"  @click="mallTurnChain">
+				<view class="app">
+				  <view class="wrapper">
+					<view class="content">
+						<view class="money">
+						  <text>¥</text>{{numFilter(item.discount)}}
+						</view>
+					  <view class='co'>
+						<view class='co_w'></view>
+						<view class="title">
+						  隐藏优惠券
+						</view>
+						<view class='co_l'></view>
+					  </view>
+					</view>
+					<view class="split-line"></view>
+					<view class="tip">
+					  <view class="conditions">
+						领取时间
+					  </view>
+					  <view class="get-time">{{$u.timeFormat(item.couponStartTime, 'yyyy.mm.dd')}}-{{$u.timeFormat(item.couponEndTime, 'yyyy.mm.dd')}}</view>
+					  <button class="useNow" bindtap="">
+					  立即使用
+					  </button>
+					</view>
+				  </view>
+				</view>
+				<!-- <image style="width: 100%;" src="../../static/shop/coupon.png" mode="widthFix"></image>
 				<view class="item-coupon-price">{{numFilter(item.discount)}}</view>
-				<view class="item-coupon-time">{{$u.timeFormat(item.couponStartTime, 'yyyy.mm.dd')}}-{{$u.timeFormat(item.couponEndTime, 'yyyy.mm.dd')}}</view>
+				<view class="item-coupon-time">{{$u.timeFormat(item.couponStartTime, 'yyyy.mm.dd')}}-{{$u.timeFormat(item.couponEndTime, 'yyyy.mm.dd')}}</view> -->
 			</view>
 		</view>
 		
@@ -73,6 +99,7 @@
 					queryParams: {},
 					titleTag: '拼多多',
 					couponTop: 35,
+					boxTitleHe: 24,
 					collapseHeadStyle: {
 						"padding-left": "26rpx",
 						"background-color": "#ffffff",
@@ -105,6 +132,7 @@
 							// 获取标题高度
 							let info = uni.createSelectorQuery().select(".item-title");
 					　　　  　info.boundingClientRect(function(data) { //data - 各种参数
+							  that.boxTitleHe = data.height&&data.height>0 ? data.height : 24
 							  // 96  60  -36
 							  // 72  40  -32
 							  // 48  15  -33
