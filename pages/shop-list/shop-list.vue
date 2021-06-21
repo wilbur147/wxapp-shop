@@ -23,7 +23,7 @@
 		<!-- navbar -->
 		<view class="navbar" :style="{ top: `${jumpType == 'search' ? fixdTop + 50 : fixdTop}px`, }">
 			<view class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)">
-				综合
+				综合 
 			</view>
 			<view class="nav-item" :class="{current: filterIndex === 1}" @click="tabClick(1)">
 				销量
