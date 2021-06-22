@@ -118,22 +118,22 @@
 			//监听输入
 			inputChange(event) {
 				//兼容引入组件时传入参数情况
-				// var keyword = event.detail?event.detail.value:event;
-				// if (!keyword) {
-				// 	this.keywordList = [];
-				// 	this.isShowKeywordList = false;
-				// 	return;
-				// }
-				// this.isShowKeywordList = true;
-				// //以下示例截取淘宝的关键字，请替换成你的接口
-				// uni.request({
-				// 	url: 'https://suggest.taobao.com/sug?code=utf-8&q=' + keyword, //仅为示例
-				// 	success: (res) => {
-				// 		this.keywordList = [];
-				// 		this.keywordList = this.drawCorrelativeKeyword(res.data.result, keyword);
+				var keyword = event.detail?event.detail.value:event;
+				if (!keyword) {
+					this.keywordList = [];
+					this.isShowKeywordList = false;
+					return;
+				}
+				this.isShowKeywordList = true;
+				//以下示例截取淘宝的关键字，请替换成你的接口
+				uni.request({
+					url: 'https://suggest.taobao.com/sug?code=utf-8&q=' + keyword, //仅为示例
+					success: (res) => {
+						this.keywordList = [];
+						this.keywordList = this.drawCorrelativeKeyword(res.data.result, keyword);
 						
-				// 	}
-				// });
+					}
+				});
 			},
 			//高亮关键字
 			drawCorrelativeKeyword(keywords, keyword) {

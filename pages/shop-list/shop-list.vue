@@ -11,7 +11,7 @@
 		<!-- 搜索框 -->
 		<view class="search-box" :style="{ top: `${fixdTop - 55}px`, }" v-if="jumpType == 'search'">
 			<u-search v-model="queryParams.searchStr" placeholder="输入宝贝关键字" :clearabled="true" margin="30rpx 20rpx"
-				:show-action="true" action-text="搜索" :animation="false" @custom="toSearch">
+				:show-action="true" action-text="搜索" :animation="false" @custom="toSearch" @search="toSearch">
 			</u-search>
 		</view>
 		<!-- shopType -->
@@ -23,7 +23,7 @@
 		<!-- navbar -->
 		<view class="navbar" :style="{ top: `${jumpType == 'search' ? fixdTop + 50 : fixdTop}px`, }">
 			<view class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)">
-				综合
+				综合 
 			</view>
 			<view class="nav-item" :class="{current: filterIndex === 1}" @click="tabClick(1)">
 				销量
