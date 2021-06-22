@@ -2,8 +2,8 @@
 	<view class="u-bg-gray">
 		<u-toast ref="uToast" />
 		<!-- 详情主图 -->
-		<u-image width="100%" height="830rpx" :src="item.img"></u-image>
-		
+		<!-- <u-image width="100%" height="830rpx" :src="item.img"></u-image> -->
+		<u-swiper height="750" :list="item.imges" mode="none" :autoplay="false"></u-swiper>
 		<!-- 中间信息 -->
 		<view class="price-wrap-box">
 			<view class="price-wrap">
@@ -179,7 +179,7 @@
 					}
 				},
 				toShopIndex(){
-					wx.redirectTo({
+					uni.redirectTo({
 						url: '/pagesB/pages/shopping/shopping'
 					})
 				},

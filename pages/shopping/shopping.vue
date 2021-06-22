@@ -13,13 +13,22 @@
 				</view>
 			</view>
 		</u-navbar>
+		<!-- 粘贴板 -->
+		<u-popup v-model="clipboardShow" mode="center" closeable="true" border-radius="14" width="500rpx" height="400rpx" @close="hidClipboard">
+			<view class="clipboard-content-box">
+				<u-divider margin-bottom="40">是否搜索以下商品</u-divider>
+				<view class="u-line-2" style="text-align: center;margin-bottom: 50rpx;min-height: 76rpx;">{{clipboardText}}</view>
+				<u-button shape="circle" :custom-style="clipboardBtnCustomStyle" 
+				:hair-line="false" :ripple="true" @click="clipboardToSearch">立即搜索</u-button>
+			</view>
+		</u-popup>
 		<!-- 搜索框 -->
 		<u-search v-model="searchValue" placeholder="输入商品名称或粘贴标题" :clearabled="false" margin="30rpx 20rpx"
 			:show-action="true" border-color="#feda2a" :disabled="true" @click="toSearch" height="86"
 			:action-style="searchActionStyle" action-text="搜索优惠券" input-style="position: relative;">
 		</u-search>
 		<!-- 商品广告图 -->
-		<view style="text-align: center;" v-if="adOne">
+		<view style="text-align: center;" v-if="adOne.src && adOne.src != ''">
 			<image :src="adOne.src" @click="toPath(adOne.item)" mode="widthFix" class="ad-image"></image>
 		</view>
 		<view class="section"  v-if="features">
@@ -42,7 +51,7 @@
 				class="third-image"></image>
 		</view>
 		<!-- 商品广告图 -->
-		<view style="text-align: center;"  v-if="adSecond">
+		<view style="text-align: center;"  v-if="adSecond.src && adSecond.src != ''">
 			<image :src="adSecond.src" @click="toPath(adSecond.item)" mode="widthFix" class="ad-image"></image>
 		</view>
 
@@ -96,6 +105,7 @@
 
 <script>
 	import {request} from "../../utils/request";
+	var app = getApp();
 	export default {
 		data() {
 			return {
@@ -144,8 +154,8 @@
 					},
 				],
 				features: [],
-				adOne: {},
-				adSecond: {},
+				adOne: null,
+				adSecond: null,
 				queryParams: {
 					cpType: 'pdd',
 					page: 1,
@@ -157,7 +167,16 @@
 				shopTypeIcon: '',
 			    bottomHe: 0,
 			    pageKey: "",
-			    tabBar: []
+			    tabBar: [],
+				clipboardShow: false,
+				clipboardText: '',
+				clipboardBtnCustomStyle: {
+					marginTop: '20rpx', // 注意驼峰命名，并且值必须用引号包括，因为这是对象
+					color: 'black',
+					backgroundColor: '#fcd941',
+					fontSize: '34rpx',
+					borderColor: '#fcd941'
+				}
 			}
 		},
 		onLoad() {
@@ -168,6 +187,8 @@
 			// 加载商品列表
 			this.loadGoodsList();
 			this.initShopTypeIcon();
+			// 获取粘贴板内容
+			this.getClipboardContent();
 		},
 		onReachBottom() {
 			this.loadmore();
@@ -198,15 +219,30 @@
 					this.loadGoodsList(true);
 				}
 			},
-			change(e) {
-				console.log("change>>>>>>>>>>");
-				console.log(e);
+			change(t,s) {
+				var a = this.tabBar.list[t];
+				app.globalData = s.globalData;
+				if (a.url.indexOf('index/index') != -1) {
+					wx.redirectTo({
+						url: "/pages/index/index"
+					});
+				}else if (a.url.indexOf('user/index') != -1) {
+					wx.redirectTo({
+						url: "/pages/user/index"
+					});
+				}else if (a.url.indexOf('meituan/index') != -1) {
+					wx.redirectTo({
+						url: "/pagesA/pages/meituan/index"
+					});
+				}else if (a.url.indexOf('elm/index') != -1) {
+					wx.redirectTo({
+						url: "/pagesA/pages/elm/index"
+					});
+				}
 			},
-			fatherHeight(t) {
-				console.log(t.detail.__args__[1]);
-				this.bottomHe = t.detail.__args__[1]
-				console.log(this.bottomHe);
-			},
+			fatherHeight(t,ll) {
+				this.bottomHe = ll;
+		    },
 			numFilter (value) {
 				if (0 == value || '' == value || undefined == value) {
 					return 0;
@@ -269,293 +305,37 @@
 						}
 					})
 				}
+			},
+			getClipboardContent(){
+				const _this = this;
+				uni.getClipboardData({
+				    success: function (res) {
+						if (res && res.data) {
+							_this.clipboardText = res.data;
+							_this.clipboardShow = true;
+						}
+				    }
+				});
+			},
+			hidClipboard(){
+				this.clipboardShow = false;
+				this.clipboardText = '';
+			},
+			clipboardToSearch(){
+				this.clipboardShow = false;
+				uni.navigateTo({
+					url: '../shop-list/shop-list?keywords='+this.clipboardText+'&jumpType=search&title=搜索'
+				})
+				this.clipboardText = '';
 			}
 		}
 	}
 	
 </script>
-<style lang="scss" scoped>
+<style>
 	/* page不能写带scope的style标签中，否则无效 */
 	page {
 		background-color: rgb(240, 240, 240);
 	}
-	.slot-wrap{
-		display: flex;
-		.u-flex-c {
-			padding-left: 22rpx;
-			display: flex;
-			flex: 5;
-			justify-content: start;
-			align-items: center;
-			.navbar-images {
-				width: 40rpx;
-				height: 40rpx;
-				border-radius: 50%;
-				border: 2rpx solid #FFFFFF;
-			}
-		}
-		.navbar-title{
-			font-size: 32rpx;
-			font-weight: 700;
-			display: flex;
-			flex: 10;
-			justify-content: start;
-			align-items: center;
-			padding-left: 12rpx;
-		}
-	}
-	
-	.tx-wrap{
-		position: relative;
-		padding: 22rpx 18rpx;
-		height: 427rpx;
-		.first-image {
-			position: absolute;
-			left: 20rpx;
-			top: 18rpx;
-			width: 306rpx;
-			height: 392rpx!important;
-			border-top-left-radius: 20rpx;
-			border-bottom-left-radius: 30rpx;
-		}
-		
-		.second-image {
-			width: 410rpx;
-			height: 210rpx;
-			position: absolute;
-			top: 18rpx;
-			right: 18rpx;
-			border-top-right-radius: 20rpx;
-		}
-		
-		.third-image {
-			width: 410rpx;
-			height: 210rpx;
-			position: absolute;
-			top: 214rpx;
-			right: 18rpx;
-			border-bottom-right-radius: 20rpx;
-		}
-	}
-	
-	
-	.ad-image {
-		border-radius: 30rpx;
-		margin: 0rpx auto;
-		width: 94%;
-		height: 190rpx !important;
-	}
-	
-	
-	.section {
-		width: 100vw;
-		margin-top: 20rpx;
-	
-		.section-top {
-			width: 100vw;
-			display: flex;
-			align-items: center;
-			height: 60rpx;
-	
-			.section-text {
-				font-size: 30rpx;
-				font-weight: bold;
-				margin-left: 20rpx;
-			}
-		}
-	
-		.section-bottom {
-			width: 100vw;
-			padding: 12rpx;
-			text-align: center;
-	
-			.scroll-view_X {
-				width: 100%;
-				white-space: nowrap;
-	
-				.section-bottom-item {
-					width: 25%;
-					display: inline-block;
-	
-					image {
-						width: 15vw;
-						height: 15vw;
-						margin: auto;
-					}
-	
-					text {
-						color: #707070;
-						font-size: 24rpx;
-						text-align: center;
-						width: 20vw;
-						display: block;
-						white-space: pre-line;
-						margin: auto;
-					}
-				}
-			}
-		}
-	}
-	
-	.sell-wrap {
-		border-radius: 15rpx;
-		background-color: #FFFFFF;
-		width: 95%;
-		height: 160rpx;
-		margin: 20rpx auto;
-	
-		.type-title {
-			font-size: 34rpx;
-			font-weight: 600;
-			margin-bottom: 15rpx;
-			text-align: center;
-			margin-top: 34rpx;
-		}
-	
-		.type-desc {
-			font-size: 22rpx;
-			text-align: center;
-			height: 40rpx;
-			line-height: 40rpx;
-			width: 140rpx;
-			margin: auto;
-			&.active {
-				background-color: #feda2a;
-				border-radius: 30rpx;
-			}
-		}
-	
-	}
-	
-	.item-list{
-		width: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		.item-item {
-		    width: 356rpx;
-		    margin-left: 14rpx;
-		    height: 646rpx;
-		    border-radius: 12rpx;
-		    background-color: #fff;
-		    position: relative;
-		    margin-top: 20rpx;
-			.item-thumbnail {
-			    width: 326rpx;
-			    height: 326rpx;
-			    border-radius: 10rpx;
-			    position: absolute;
-			    left: 14rpx;
-			    top: 16rpx;
-			}
-			.item-shop-type {
-			    width: 31rpx;
-			    height: 31rpx;
-			    top: 363rpx;
-				position: absolute;
-				left: 11rpx;
-				border-radius: 8rpx;
-			}
-			.item-title {
-				position: absolute;
-				left: 11rpx;
-			    text-indent: 36rpx;
-			    top: 360rpx;
-			    right: 30rpx;
-			    font-size: 24rpx;
-			    display: -webkit-box;
-			    overflow: hidden;
-			    text-overflow: ellipsis;
-			    word-wrap: break-word;
-			    white-space: normal!important;
-			    -webkit-line-clamp: 2;
-			    -webkit-box-orient: vertical;
-			}
-			.item-price-box {
-			    position: absolute;
-			    left: 14rpx;
-			    top: 436rpx;
-			    display: flex;
-			    align-items: baseline;
-			    color: #f02038;
-			    font-weight: 700;
-				.item-price-prefix {
-					font-size: 22rpx;
-					margin-left: 2rpx;
-					font-weight: lighter;
-				}
-				
-				.item-price {
-				    font-size: 42rpx;
-				}
-			}
-			
-			.item-coupon-box {
-			    width: 96rpx;
-			    height: 34rpx;
-			    line-height: 34rpx;
-			    position: absolute;
-			    top: 450rpx;
-			    right: 14rpx;
-				.item-coupon-prefix {
-				    width: 36rpx;
-				    font-size: 20rpx;
-				    color: #fff;
-				    left: 0;
-						height: 34rpx;
-						line-height: 34rpx;
-						text-align: center;
-						position: absolute;
-						top: 0;
-				}
-				.item-coupon-price {
-				    height: 34rpx;
-				    line-height: 34rpx;
-				    text-align: center;
-				    position: absolute;
-				    top: 0;
-						right: 0;
-						width: 60rpx;
-						color: #ff3624;
-						font-size: 22rpx;
-				}
-			}
-			.item-line {
-			    position: absolute;
-			    left: 14rpx;
-			    right: 14rpx;
-			    top: 508rpx;
-			    height: 1rpx;
-			    background: #e5e5e5;
-			}
-			.item-price-origin {
-			    left: 14rpx;
-			    text-decoration: line-through;
-			}
-			
-			.item-price-origin,.item-sale {
-			    font-size: 20rpx;
-			    color: #a9a9a9;
-			    font-weight: lighter;
-			    position: absolute;
-			    top: 526rpx;
-			}
-			.item-sale {
-			    margin-left: 20rpx;
-			    right: 14rpx;
-			}
-			.item-money-earn {
-			    width: 320rpx;
-			    height: 62rpx;
-			    text-align: center;
-			    line-height: 62rpx;
-			    font-size: 26rpx;
-			    color: #fff;
-			    border-radius: 10rpx;
-			    position: absolute;
-			    left: 16rpx;
-			    top: 568rpx;
-			    font-weight: 700;
-			}
-		}
-	}
 </style>
+<style lang="scss" scoped src="./shopping.scss"></style>
