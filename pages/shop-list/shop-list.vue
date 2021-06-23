@@ -312,6 +312,7 @@
 		z-index: 100;
 	}
 	.search-box{
+		background-color: #FFFFFF;
 		width: 100%;
 		top: 0rpx;
 	}
