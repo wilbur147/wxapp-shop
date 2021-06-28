@@ -44,10 +44,7 @@
 					</view>
 				  </view>
 				</view>
-				<!-- <image style="width: 100%;" src="../../static/shop/coupon.png" mode="widthFix"></image>
-				<view class="item-coupon-price">{{numFilter(item.discount)}}</view>
-				<view class="item-coupon-time">{{$u.timeFormat(item.couponStartTime, 'yyyy.mm.dd')}}-{{$u.timeFormat(item.couponEndTime, 'yyyy.mm.dd')}}</view> -->
-			</view>
+				</view>
 		</view>
 		
 		<!-- 店铺信息 -->
