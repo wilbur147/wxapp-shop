@@ -26,7 +26,7 @@
 			</view>
 		</view>
 		<!-- 中部功能图 -->
-		<view class="section"  v-show="features.length > 0">
+		<view class="section"  v-if="features.length > 0">
 			<view class="section-bottom">
 				<scroll-view class="scroll-view_X" scroll-x="true">
 					<view v-for="(item, index) in features" :key="index" class="section-bottom-item">
