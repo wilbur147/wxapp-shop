@@ -46,6 +46,7 @@
 				</view>
 			</view>
 		</view>
+	</view>
 		
 		<!-- 店铺信息 -->
 		<view class="shop-info-box">
